@@ -5,7 +5,7 @@
 using namespace std;
 class beautify{
 public:
-    void pretty_stack(vector<string>& lines) {
+    void beautify(vector<string>& lines) {
         char indent = '\t';
         stack<string> temp;
 
