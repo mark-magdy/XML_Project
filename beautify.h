@@ -5,7 +5,7 @@
 using namespace std;
 class beautify{
 public:
-    void beautify(vector<string>& lines) {
+    void prettify(vector<string>& lines) {
         char indent = '\t';
         stack<string> temp;
 
@@ -57,6 +57,35 @@ public:
                 cout << lines[i];
             }
 
+        }
+    }
+
+    void minify(vector<string>& lines) {
+        int l = 0;
+        for (int i = 0; i < lines.size(); i++) {
+            string s = lines[i];
+            string temp;
+            bool space = s[0] == ' ' ? true : false;
+            for (int j = 0; j < s.length(); j++) {
+                if (space) {
+                    space = s[j + 1] == ' ' ? true : false;
+                    continue;
+                }
+
+                if (j > 0 && s[j - 1] == '>') {
+                    if (s[j] == ' ' && !isalpha(s[j + 1])) break;
+                }
+
+                temp += s[j];
+            }
+
+            if (!temp.empty()) {
+                lines[l] = temp;
+                l++;
+            }
+        }
+        for (l; l < lines.size(); l++) {
+            lines.pop_back();
         }
     }
 };
