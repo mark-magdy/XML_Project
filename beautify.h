@@ -21,13 +21,13 @@ public:
 
             if (s[0] != '<') {
                 lines[i] = tabs + lines[i] + '\n';
-                cout << lines[i];
+                //cout << lines[i];
                 continue;
             }
 
             if (s[1] != '/') {
                 lines[i] = tabs + lines[i] + '\n';
-                cout << lines[i];
+                //cout << lines[i];
             }
 
             for (int j = 0; j < s.length(); j++) {
@@ -54,7 +54,7 @@ public:
                 int level = temp.size();
                 string tabs(level, indent);
                 lines[i] = tabs + lines[i] + '\n';
-                cout << lines[i];
+                //cout << lines[i];
             }
 
         }
