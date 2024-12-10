@@ -179,7 +179,7 @@ int main()
     cout << "--------------" << endl;
     prettify(xml);
     for (int i = 0; i < xml.size(); i++) {
-        cout << xml[i] << endl;
+        cout << xml[i];
     }
     
 }
