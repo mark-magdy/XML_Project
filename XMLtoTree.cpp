@@ -35,7 +35,7 @@ treeNode* totree(string str_file)
         {
             cout<<"current char is "<<str_file[i]<<"test"<<endl;
             cout<<"next char is :"<<str_file[i+1]<<"test"<<endl;
-             if(i==-1)
+             if(i==-1 || i>(str_file.size()-1))
                 {
                     break;
                 }
