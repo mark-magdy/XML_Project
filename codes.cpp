@@ -2,7 +2,52 @@
 #include "beautify.h"
 using namespace std;
 
+void minify(vector<string>& lines) {
+    int l = 0;
+    for (int i = 0; i < lines.size(); i++) {
+        string s = lines[i];
+        string temp;
+        bool space = s[0] == ' ' ? true : false;
+        for (int j = 0; j < s.length(); j++) {
+            if (space) {
+                space = s[j + 1] == ' ' ? true : false;
+                continue;
+            }
+
+            if (j > 0 && s[j - 1] == '>') {
+                if (s[j] == ' ' && !isalpha(s[j + 1])) break;
+            }
+
+            temp += s[j];
+        }
+
+        if (!temp.empty()) {
+            lines[l] = temp;
+            l++;
+        }
+    }
+    for (l; l < lines.size(); l++) {
+        lines.pop_back();
+    }
+}
+
+void editing(vector<string>& lines) { //call in case of multiple tags in 1 line
+    for (int i = 0; i < lines.size(); i++) {
+        string temp = lines[i];
+        for (int j = 0; j < temp.length(); j++) {
+            if (temp[j] == '>' && j < temp.length() - 1 && temp[j + 1] == '<') {
+                lines[i] = temp.substr(0, j + 1);
+                string push = temp.substr(j + 1, temp.length() - (j + 1));
+                lines.insert(lines.begin() + i + 1, push);
+            }
+        }
+    }
+}
+
 void prettify(vector<string>& lines) {
+    editing(lines);
+    minify(lines);
+
     char indent = '\t';
     stack<string> temp;
 
@@ -54,35 +99,6 @@ void prettify(vector<string>& lines) {
             //cout << lines[i];
         }
 
-    }
-}
-
-void minify(vector<string>& lines) {
-    int l = 0;
-    for (int i = 0; i < lines.size(); i++) {
-        string s = lines[i];
-        string temp;
-        bool space = s[0] == ' ' ? true : false;
-        for (int j = 0; j < s.length(); j++) {
-            if (space) {
-                space = s[j + 1] == ' ' ? true : false;
-                continue;
-            }
-
-            if (j > 0 && s[j - 1] == '>') {
-                if (s[j] == ' ' && !isalpha(s[j + 1])) break;
-            }
-
-            temp += s[j];
-        }
-
-        if (!temp.empty()) {
-            lines[l] = temp;
-            l++;
-        }
-    }
-    for (l; l < lines.size(); l++) {
-        lines.pop_back();
     }
 }
 
@@ -172,11 +188,13 @@ int main()
             "  </user>",
             "  </users>"
     };
-    minify(xml);
+
+    /*minify(xml);
     for (int i = 0; i < xml.size(); i++) {
         cout << xml[i] << endl;
     }
-    cout << "--------------" << endl;
+    cout << "--------------" << endl;*/
+
     prettify(xml);
     for (int i = 0; i < xml.size(); i++) {
         cout << xml[i];
