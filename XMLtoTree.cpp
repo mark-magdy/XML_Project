@@ -31,15 +31,12 @@ treeNode* totree(string str_file)
     treeNode* temp_go_back;
     string check_content;
 
-     while(str_file[i]!=NULL)
+     while(i>-1 && i<(str_file.size()))
         {
             cout<<"current char is "<<str_file[i]<<"test"<<endl;
             cout<<"next char is :"<<str_file[i+1]<<"test"<<endl;
-             if(i==-1 || i>(str_file.size()-1))
-                {
-                    break;
-                }
-            else if(str_file[i]=='<' && str_file[i+1]!='/')        //open tag
+            
+            if(str_file[i]=='<' && str_file[i+1]!='/')        //open tag
                 {
                     index= str_file.find('>',i);              //look for next >
                     len = index-i-1;                          //to get the str inside the tags
