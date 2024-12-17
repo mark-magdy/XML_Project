@@ -94,14 +94,19 @@ treeNode* totree(string str_file)
                 {
                     if(slider->identifier==parents_list.top()->identifier)
                         {
-                            temp_go_back = parents_list.top(); //pop the child
-                            parents_list.pop();
-                            level--;                           // go up a level
-                            slider = parents_list.top();
-                            temp_go_back->parent = slider;
-                            slider->children.push_back(temp_go_back); //adding child to the vector of the parent
-                            cout<<"popped: "<<temp_go_back->identifier<<", current"<<slider->identifier<<endl;
-
+                            if(parents_list.size()==1){
+                                    cout<<"The End.."<<endl;
+                                    parents_list.pop();
+                            }
+                            else {
+                                temp_go_back = parents_list.top(); //pop the child
+                                parents_list.pop();
+                                level--;                           // go up a level
+                                slider = parents_list.top();
+                                temp_go_back->parent = slider;
+                                slider->children.push_back(temp_go_back); //adding child to the vector of the parent
+                                cout<<"popped: "<<temp_go_back->identifier<<", current"<<slider->identifier<<endl;
+                            }
                         }
                         i=str_file.find('<',i+1);  //next open tag
                         cout<<"next index: :"<<i<<endl;
