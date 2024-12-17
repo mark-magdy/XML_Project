@@ -8,7 +8,7 @@
 using namespace std;
 
 // Global fixed window size
-const int WINDOW_SIZE = 4096; 4KB window
+const int WINDOW_SIZE = 4096; // 4KB window
 
 // Structure to store tokens (offset, length, next_char)
 struct Token {
