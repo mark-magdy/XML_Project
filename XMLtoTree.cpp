@@ -21,37 +21,41 @@ class treeNode{
     }
 };
 
-treeNode* totree(string str_file)
+vector <treeNode*> totree(string str_file)
 {
     int len;
-    long long index, level=0, i=0;
+    signed long long index, level=0, i=0;
+    vector <treeNode*> roots;
     stack<treeNode*> parents_list;
-    treeNode* Root = new treeNode();
+
     treeNode* slider;
     treeNode* temp_go_back;
     string check_content;
 
      while(i>-1 && i<(str_file.size()))
         {
+            cout<<"i is kaza : "<<i<<endl;
             cout<<"current char is "<<str_file[i]<<"test"<<endl;
-            cout<<"next char is :"<<str_file[i+1]<<"test"<<endl;
-            
-            if(str_file[i]=='<' && str_file[i+1]!='/')        //open tag
+            cout<<"next char is :"<<str_file[i+1]<<"test"<<endl<<endl;
+
+         if(str_file[i]=='<' && str_file[i+1]!='/')        //open tag
                 {
                     index= str_file.find('>',i);              //look for next >
                     len = index-i-1;                          //to get the str inside the tags
 
-                    if(i==0)
+                    if(level==0)
                     {
+                         treeNode* Root = new treeNode();
                         Root->identifier = str_file.substr(i+1,len);
-                        Root->level = level;
+                        cout<<"new root...."<<Root->identifier;
+                        Root->level = level++;
                         slider=Root;
                     }
                     else{
-                        level++;
+
                         treeNode *new_child = new treeNode();  //pointer to new node
                         new_child->identifier = str_file.substr(i+1,len);
-                        new_child->level = level;
+                        new_child->level = level++;
 
                         slider = new_child;
                     }
@@ -92,28 +96,36 @@ treeNode* totree(string str_file)
                 }
             else if (str_file[i]=='<' && str_file[i+1]=='/') //closing tag
                 {
+
+
                     if(slider->identifier==parents_list.top()->identifier)
                         {
                             if(parents_list.size()==1){
-                                    cout<<"The End.."<<endl;
+                                    cout<<"The End.."<<parents_list.top()->identifier<<endl;
+                                    roots.push_back(slider);
+                                    cout<<roots[0]->identifier<<endl;
+                                    cout<<"Size : "<<roots.size()<<endl;
+                                    level =0;
                                     parents_list.pop();
                             }
                             else {
-                                temp_go_back = parents_list.top(); //pop the child
-                                parents_list.pop();
-                                level--;                           // go up a level
-                                slider = parents_list.top();
-                                temp_go_back->parent = slider;
-                                slider->children.push_back(temp_go_back); //adding child to the vector of the parent
-                                cout<<"popped: "<<temp_go_back->identifier<<", current"<<slider->identifier<<endl;
+
+                            temp_go_back = parents_list.top(); //pop the child
+                            parents_list.pop();
+                            level--;                           // go up a level
+                            slider = parents_list.top();
+                            temp_go_back->parent = slider;
+                            slider->children.push_back(temp_go_back); //adding child to the vector of the parent
+                            cout<<"popped: "<<temp_go_back->identifier<<", current"<<slider->identifier<<endl;
                             }
+
                         }
                         i=str_file.find('<',i+1);  //next open tag
                         cout<<"next index: :"<<i<<endl;
                 }
         }
 
-     return Root;
+     return roots;
 }
 
 void see_tree( treeNode * test)
@@ -135,52 +147,21 @@ void see_tree( treeNode * test)
     }
 
 }
+
+void see_roots (vector <treeNode*> test){
+    for(int i=0; i<test.size(); i++)
+        {
+            cout<<"Root : "<<test[i]->identifier<<endl;
+        see_tree(test[i]);
+    }
+}
 int main()
 {
-  string str = R"(<users><user><id>
-            1
-        </id>
-        <name>
-            Ahmed Ali
-        </name>
-        <posts>
-            <post>
-                <body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </body>
-                <topics>
-                    <topic>
-                        economy
-                    </topic>
-                    <topic>
-                        finance
-                    </topic>
-                </topics>
-            </post>
-            <post>
-                <body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </body>
-                <topics>
-                    <topic>
-                        solar_energy
-                    </topic>
-                </topics>
-            </post>
-        </posts>
-        <followers>
-            <follower>
-                <id>2</id>
-            </follower>
-            <follower>
-                <id>3</id>
-            </follower>
-        </followers>
-    </user>)";
-  treeNode* test = totree(str);
+  string str = R"(<users> <a><c>00</c></a> <b></b> </users> <new> <A> </A> </new>)";
+  vector <treeNode*> test = totree(str);
 
   //testing
-  see_tree(test);
-  //cout<<"followers id "<< test->children[0]->children[3]->children[0]->children[0]->content; //issue
+  see_roots(test);
+  //cout<<test[0]->identifier; //issue
     return 0;
 }
