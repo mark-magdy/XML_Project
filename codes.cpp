@@ -239,4 +239,12 @@ int main()
     vector<string> tester;
     node_to_vector(test, tester);
     for (int i = 0; i < tester.size(); i++)cout << i << ": " << tester[i] << endl;
+
+    cout << "-------------------------" << endl;
+
+    prettify(tester);
+    for (int i = 0; i < tester.size(); i++) {
+        cout << tester[i];
+    }
+
 }
