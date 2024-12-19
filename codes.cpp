@@ -104,24 +104,37 @@ void prettify(vector<string>& lines) {
 }
 
 void node_to_vector(vector<treeNode*> parent, vector<string>& result) {
-    treeNode* temp = parent[0];
+    if (!parent[0]) return;
+    treeNode* current = parent[0];
+    bool done;
 
     stack<treeNode*> nodes;
-    nodes.push(temp);
+    stack<bool> finished;
+    nodes.push(current);
+    finished.push(false);
 
     while (!nodes.empty()) {
-        treeNode* current = nodes.top();
+        current = nodes.top();
+        done = finished.top();
+        finished.pop();
         nodes.pop();
-        result.push_back("<" + current->identifier + ">");
-        if (current->content != "")
-        result.push_back(current->content);
 
-        int childrenSize = current->children.size();
-
-        for (int i = childrenSize - 1; i >= 0; i--) {
-            nodes.push(current->children[i]);
+        if (done) {
+            result.push_back("</" + current->identifier + ">");
+            continue;
         }
 
+        result.push_back("<" + current->identifier + ">");
+        if (current->content != "")
+            result.push_back(current->content);
+
+        nodes.push(current);
+        finished.push(true);
+        int childrenSize = current->children.size();
+        for (int i = childrenSize - 1; i >= 0; i--) {
+            nodes.push(current->children[i]);
+            finished.push(false);
+        }
     }
 
 }
