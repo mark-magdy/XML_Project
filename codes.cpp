@@ -142,7 +142,7 @@ void node_to_vector(vector<treeNode*> parent, vector<string>& result) {
 
 }
 
-void tester(vector<string> x,vector<treeNode*>y)
+void tester(vector<string> x, vector<treeNode*> y)
 {
     vector<string> xml = {
             "  <users>  ",
@@ -239,15 +239,29 @@ void tester(vector<string> x,vector<treeNode*>y)
     vector <treeNode*> test = totree(str);
 
     //testing
-    vector<string> tester;
-    node_to_vector(test, tester);
-    for (int i = 0; i < tester.size(); i++)cout << i << ": " << tester[i] << endl;
+    vector<string> tester1;
+    node_to_vector(test, tester1);
+    for (int i = 0; i < tester1.size(); i++)cout << i << ": " << tester1[i] << endl;
 
     cout << "-------------------------" << endl;
 
-    prettify(tester);
-    for (int i = 0; i < tester.size(); i++) {
-        cout << tester[i];
+    prettify(tester1);
+    for (int i = 0; i < tester1.size(); i++) {
+        cout << tester1[i];
+    }
+    cout << "-------------------------" << endl;
+
+    prettify(x);
+    for (int i = 0; i < x.size(); i++) {
+        cout << x[i];
+    }
+    cout << "-------------------------" << endl;
+
+    vector<string> tester2;
+    node_to_vector(y, tester2);
+    prettify(tester2);
+    for (int i = 0; i < tester2.size(); i++) {
+        cout << tester2[i];
     }
 
 }
