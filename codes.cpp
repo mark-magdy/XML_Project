@@ -1,6 +1,9 @@
 #include <iostream>
-#include "beautify.h"
-#include "XMLtoTree.cpp"
+#include <stack>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include "XMLtoTree.h"
 using namespace std;
 
 void minify(vector<string>& lines) {
@@ -44,7 +47,7 @@ void editing(vector<string>& lines) { //call in case of multiple tags in 1 line
         }
     }
 }
-
+//minify, editing are called inside prettify
 void prettify(vector<string>& lines) {
     editing(lines);
     minify(lines);
@@ -102,7 +105,7 @@ void prettify(vector<string>& lines) {
 
     }
 }
-
+//not called inside inside prettify
 void node_to_vector(vector<treeNode*> parent, vector<string>& result) {
     if (!parent[0]) return;
     treeNode* current = parent[0];
@@ -139,7 +142,7 @@ void node_to_vector(vector<treeNode*> parent, vector<string>& result) {
 
 }
 
-int main()
+void tester(vector<string> x,vector<treeNode*>y)
 {
     vector<string> xml = {
             "  <users>  ",
