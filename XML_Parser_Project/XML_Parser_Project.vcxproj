@@ -97,6 +97,7 @@
     <QtMoc Include="XML_Parser_Project.h" />
     <ClCompile Include="codeEditor.cpp" />
     <ClCompile Include="functionBtns.cpp" />
+    <ClCompile Include="highlighter.cpp" />
     <ClCompile Include="outputWindow.cpp" />
     <ClCompile Include="XML_Parser_Project.cpp" />
     <QtMoc Include="main.cpp">
@@ -112,10 +113,14 @@
     <QtMoc Include="outputWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="highlighter.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XML_Parser_Project.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="style.qss" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

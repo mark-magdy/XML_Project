@@ -46,6 +46,9 @@
     <ClCompile Include="functionBtns.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="highlighter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="functionBtns.h">
@@ -60,6 +63,9 @@
     <QtMoc Include="main.cpp">
       <Filter>Source Files</Filter>
     </QtMoc>
+    <QtMoc Include="highlighter.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -70,5 +76,8 @@
     <ResourceCompile Include="XML_Parser_Project.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="style.qss" />
   </ItemGroup>
 </Project>

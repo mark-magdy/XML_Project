@@ -1,0 +1,59 @@
+/* Main Window */
+QMainWindow {
+    background-image: url("background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f0f0f0;
+}
+
+/* QLabel */
+QLabel {
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* QPushButton */
+QPushButton {
+    background-color: #3498db;
+    color: white;
+    border-radius:15px;
+    padding: 5px; 
+    font-size: 16px;
+}
+
+QPushButton:hover {
+    background-color: #2980b9;
+}
+
+QPushButton:pressed {
+    background-color: #1c639d;
+}
+
+/* QPlainTextEdit */
+QPlainTextEdit {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-family: Courier, monospace;
+    font-size: 14px;
+    color: #333;
+}
+
+/* QVBoxLayout, QHBoxLayout */
+QVBoxLayout, QHBoxLayout {
+    margin: 10px;
+    padding: 0;
+}
+
+/* Custom Widgets (codeEditor, outputWindow, functionBtns) */
+codeEditor, outputWindow, functionBtns {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-family: Courier, monospace;
+    font-size: 14px;
+    color: #333;
+}
