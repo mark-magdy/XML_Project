@@ -13,8 +13,9 @@
 #include <QMenu> 
 #include <QAction>
 #include <QMessageBox>
+#include "../Backend.h"
 
-QApplication * globalVar ; 
+QApplication * globalVar ;
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -22,22 +23,25 @@ public:
     ~MainWindow();
 
 private slots:
-    void showAboutDialog(); 
+    void showAboutDialog();
     void christmasUI();
-    void darkUI(); 
-    void lightUI(); 
+    void darkUI();
+    void lightUI();
 
-private:
+public:
     QLabel* label;
+
     codeEditor* input;
     outputWindow* output;
     functionBtns* functionBtnsObj;
 
-    void createMenus(); 
+    void createMenus();
 };
+
 
 MainWindow::MainWindow(QMainWindow* parent)
     : QMainWindow(parent), label(new QLabel(this)), input(new codeEditor()), output(new outputWindow()), functionBtnsObj(new functionBtns()) {
+
     setWindowTitle("XML Parser");
     //setWindowIcon(QIcon("D:/ASU Courses Engineering Junior/data structure/qt trials/XML_project_GUI/XML_project_GUI/icon.jpg"));
     resize(800, 500);
@@ -70,6 +74,7 @@ MainWindow::~MainWindow() {
     delete output;
     delete functionBtnsObj;
 }
+
 //---------------------------------------------------------
 
 
@@ -86,7 +91,7 @@ void MainWindow::createMenus() {
     connect(exitAction, &QAction::triggered, this, &QMainWindow::close);
     fileMenu->addAction(exitAction);
 
-//------------------------------------------------------------
+    //------------------------------------------------------------
     QMenu* viewMenu = menuBar->addMenu(tr("&View"));
 
 
@@ -97,12 +102,12 @@ void MainWindow::createMenus() {
     QAction* darkUIAction = new QAction(tr("&DarkUI"), this);
     connect(darkUIAction, &QAction::triggered, this, &MainWindow::darkUI);
     viewMenu->addAction(darkUIAction);
-    
+
     QAction* lightUIAction = new QAction(tr("&LightUI"), this);
     connect(lightUIAction, &QAction::triggered, this, &MainWindow::lightUI);
     viewMenu->addAction(lightUIAction);
 
-//----------------------------------------------------
+    //----------------------------------------------------
     QMenu* helpMenu = menuBar->addMenu(tr("&Help"));
 
     // Create actions for the "Help" menu
@@ -113,6 +118,7 @@ void MainWindow::createMenus() {
     // Set the menu bar
     setMenuBar(menuBar);
 }
+
 void MainWindow::christmasUI() {
     // Load the stylesheet
     QFile file("style.qss");
@@ -133,18 +139,19 @@ void MainWindow::showAboutDialog() {
     QMessageBox::about(this, tr("About"), tr("Mark was here :)  \n samoooooo 3aleeekkooooooo  "));
 }
 //----------------------------------------------------------
+MainWindow* globalWindow;
+
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     globalVar = &app; 
-    MainWindow browser;
+    MainWindow* browser= new MainWindow(); 
+    globalWindow = browser; 
     app.setStyle("Fusion");
     
-    
-    
     QIcon icon("icon.png");
-    browser.setWindowIcon(icon);
+    browser->setWindowIcon(icon);
 
-    browser.show();
+    browser->show();
     return app.exec();
 }
 
@@ -152,6 +159,61 @@ int main(int argc, char* argv[]) {
 
 
 
+void functionBtns::ValidateBtnClick() {
+    qDebug() << "Validate button clicked.";
+
+}
+
+void functionBtns::ToJSONBtnClick() {
+    qDebug() << "ToJSON button clicked.";
+
+}
+
+void functionBtns::BeautifyBtnClick() {
+    QString curText = globalWindow->input->editor->toPlainText(); 
+    
+    //TODO: validate !!
+    
+    string processStr = curText.toStdString(); 
+    vector <treeNode*> ret = totree(processStr); 
+    vector <string> temp; 
+    node_to_vector(ret, temp); 
+    prettify(temp); 
+    string outputStr = ""; 
+    for (auto& i : temp) {
+        outputStr += i;
+    }
+    globalWindow->output->setOutputText(QString::fromStdString(outputStr));
+    qDebug() << "Beautify button clicked.";
+}
+
+void functionBtns::MinifyBtnClick() {
+    QString curText = globalWindow->input->editor->toPlainText();
+
+    //TODO: validate !!
+
+    string processStr = curText.toStdString();
+    vector <treeNode*> ret = totree(processStr);
+    vector <string> temp;
+    node_to_vector(ret, temp);
+    minify(temp);
+    string outputStr = "";
+    for (auto& i : temp) {
+        outputStr += i;
+    }
+    globalWindow->output->setOutputText(QString::fromStdString(outputStr));
+    qDebug() << "Minify button clicked.";
+
+}
+
+void functionBtns::CompressBtnClick() {
+    qDebug() << "Compress button clicked.";
+}
+
+void functionBtns::DeCompressBtnClick() {
+    qDebug() << "DeCompress button clicked.";
+
+}
 
 /*
 

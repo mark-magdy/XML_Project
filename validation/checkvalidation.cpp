@@ -1,7 +1,9 @@
 
 #include <iostream>
 #include"validate.hpp"
-
+int count_opening = 0;
+int count_closing = 0;
+vector<int>line_num; // to count number of lines and use it 
 vector<string> validation:: extract_tag(string str,int num) { 
 	vector<string> tags;
 
@@ -159,6 +161,7 @@ pair<bool,string> validation::check_valid(string filename,stack<string>& tag_typ
 	return {valid,errors_GUI}; // return the validity of the XML
 }
 
+/*
 
 int main(){
 	string filename="sample.xml";
@@ -196,3 +199,4 @@ int main(){
     
 	return 0;
 }
+*/

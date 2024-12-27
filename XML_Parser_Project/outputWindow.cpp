@@ -13,7 +13,8 @@ outputWindow::outputWindow(QWidget* parent)
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(outputEdit);
     layout->addWidget(saveBtn);
-    
+    outputEdit->setTabStopDistance(QFontMetricsF(font).horizontalAdvance(' ') * 4); // 4 spaces per tab
+
     setLayout(layout);
 
     //setWindowTitle("Output Code");

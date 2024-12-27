@@ -1,8 +1,10 @@
 #include "codeEditor.h"
 
+
 codeEditor::codeEditor(QWidget* parent)
     : QWidget(parent) {
     editor = new QPlainTextEdit(this);
+
 
     QFont font;
     font.setFamily("Consolas");
@@ -20,12 +22,11 @@ codeEditor::codeEditor(QWidget* parent)
 
     layout->addWidget(editor);
 
-
     browseButton->setFixedWidth(100);
     fileLabel->setText("No file selected");
     fileLabel->setWordWrap(true);
     layoutBottom->addWidget(browseButton);
-    layoutBottom->addWidget(fileLabel); 
+    layoutBottom->addWidget(fileLabel);
     layout->addLayout(layoutBottom);
 
     myHighlighter = new CodeHighlighter(editor->document());

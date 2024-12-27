@@ -63,6 +63,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\indentation;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\XML2tree;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\validation;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\ComDec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -95,6 +100,10 @@
     <QtRcc Include="XML_Parser_Project.qrc" />
     <QtUic Include="XML_Parser_Project.ui" />
     <QtMoc Include="XML_Parser_Project.h" />
+    <ClCompile Include="..\ComDec\compress_decompress.cpp" />
+    <ClCompile Include="..\indentation\codes.cpp" />
+    <ClCompile Include="..\validation\checkvalidation.cpp" />
+    <ClCompile Include="..\XML2tree\XMLtoTree.cpp" />
     <ClCompile Include="codeEditor.cpp" />
     <ClCompile Include="functionBtns.cpp" />
     <ClCompile Include="highlighter.cpp" />
@@ -114,6 +123,11 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="highlighter.h" />
+    <ClInclude Include="..\Backend.h" />
+    <ClInclude Include="..\ComDec\lz77_compression.hpp" />
+    <ClInclude Include="..\indentation\codes.h" />
+    <ClInclude Include="..\validation\validate.hpp" />
+    <ClInclude Include="..\XML2tree\XMLtoTree.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

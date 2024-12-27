@@ -49,6 +49,18 @@
     <ClCompile Include="highlighter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\XML2tree\XMLtoTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\validation\checkvalidation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ComDec\compress_decompress.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\indentation\codes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="functionBtns.h">
@@ -60,15 +72,30 @@
     <QtMoc Include="codeEditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </QtMoc>
     <QtMoc Include="highlighter.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="main.cpp">
+      <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Backend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\validation\validate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ComDec\lz77_compression.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\indentation\codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XML2tree\XMLtoTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

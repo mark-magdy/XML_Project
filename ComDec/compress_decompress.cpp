@@ -84,7 +84,7 @@ void LZ77Decompressor::saveDecompressed(const string& data, const string& filena
     file << data;
     file.close();
 }
-
+/*
 int main() {
      string filename;
      cout << "Enter the XML file name: ";
@@ -129,3 +129,4 @@ int main() {
 
     return 0;
 }
+*/

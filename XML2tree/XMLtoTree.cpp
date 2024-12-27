@@ -28,7 +28,7 @@ vector <treeNode*> totree(string str_file)
     vector <treeNode*> roots;
     stack<treeNode*> parents_list;
 
-    treeNode* slider;
+    treeNode* slider = new treeNode(); 
     treeNode* temp_go_back;
     string check_content;
 
@@ -155,6 +155,7 @@ void see_roots (vector <treeNode*> test){
         see_tree(test[i]);
     }
 }
+/*
 int main()
 {
   string str = R"(<users> <a><c>00</c></a> <b></b> </users> <new> <A> </A> </new>)";
@@ -165,3 +166,4 @@ int main()
   //cout<<test[0]->identifier; //issue
     return 0;
 }
+*/

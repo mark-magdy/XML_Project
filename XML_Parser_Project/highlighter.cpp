@@ -5,7 +5,7 @@ CodeHighlighter::CodeHighlighter(QTextDocument* parent)
     HighlightingRule rule;
 
     // Tag highlighting
-    tagFormat.setForeground(Qt::darkBlue);
+    tagFormat.setForeground(Qt::green);
     tagFormat.setFontWeight(QFont::Bold);
     rule.pattern = QRegularExpression("</?\\b\\w+\\b[^>]*>");
     rule.format = tagFormat;
