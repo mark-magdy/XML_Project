@@ -16,7 +16,7 @@ public:
 	User* getMostActiveUser();
 	// methods
 	void addUser(User *user);
-	vector<User *> getMutualFollowers (const vector<long>& IDs);
+	vector<User *> getMutualFollowers(const vector<long>& IDs);
 };
 
 #endif //USERSGRAPH_H

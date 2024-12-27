@@ -23,7 +23,7 @@ class User {
 
 public:
 	// constructor
-	User(long ID, string name);
+	User(long ID, const string& name);
 	// getters
 	long getID();
 	string getName();
@@ -32,8 +32,10 @@ public:
 	vector<long> getFollowingIDsList();
 	vector<long> getSuggestedFriendsIDsList();
 	// methods
-	void addPost(string post);
+	void addPost(const string& post);
 	void addFollowee(long ID);
+
+	friend class UsersGraph;
 };
 
 #endif //USER_H
