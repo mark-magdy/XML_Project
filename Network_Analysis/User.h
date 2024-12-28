@@ -13,9 +13,10 @@ class User {
 	vector<long> followers_IDs_list;
 	vector<long> following_IDs_list;
 	vector<long> suggested_friends_IDs_list;	// followers of followers
-	long number_of_followers;
-	long number_of_followings;
-	long number_of_posts;
+	long number_of_followers =0;
+	long number_of_followings =0;
+    long number_of_connections =0;
+	long number_of_posts=0;
 
 	// private methods
 	void addFollower(long ID);
@@ -24,6 +25,7 @@ class User {
 public:
 	// constructor
 	User(long ID, const string& name);
+    User();
 	// getters
 	long getID();
 	string getName();
