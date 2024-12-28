@@ -6,15 +6,6 @@
 #include "validate.hpp"
 using namespace std;
 
-vector<string> lines;
-
-stack<string> s1_stack;
-stack<string> s2_stack;
-stack<int> s3_stack;
-
-stack<string>* s1 = &s1_stack;
-stack<string>* s2 = &s2_stack;
-stack<int>* s3 = &s3_stack;
 
 vector <string> lines_extraction(string filepath){
     vector <string> xml_lines;
