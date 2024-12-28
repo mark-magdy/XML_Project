@@ -6,28 +6,29 @@
 
 using namespace std;
 
-class User {
+class User
+{
 	long ID;
 	string name;
 	vector<string> posts_list;
 	vector<long> followers_IDs_list;
 	vector<long> following_IDs_list;
-	vector<long> suggested_friends_IDs_list;	// followers of followers
-	long number_of_followers =0;
-	long number_of_followings =0;
-    long number_of_connections =0;
-	long number_of_posts=0;
+	vector<long> suggested_friends_IDs_list; // followers of followers
+	long number_of_followers;
+	long number_of_followings;
+	long number_of_connections;
+	long number_of_posts;
 
 	// private methods
 	void addFollower(long ID);
 	void addSuggestedFriend(long ID);
 
 public:
-	// constructor
+	// constructors
+	User();
 	User(long ID, const string& name);
-    User();
 	// getters
-	long getID();
+	long getID() const;
 	string getName();
 	vector<string> getPostsList();
 	vector<long> getFollowersIDsList();

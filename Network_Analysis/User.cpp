@@ -1,17 +1,27 @@
 #include "User.h"
 
-// constructor
+/////////////////////////////////// constructors ///////////////////////////////////
+User::User()
+{
+	number_of_followers = 0;
+	number_of_followings = 0;
+	number_of_connections = 0;
+	number_of_posts = 0;
+}
+
 User::User(const long ID, const string& name)
 {
 	this->ID = ID;
 	this->name = name;
 	number_of_followers = 0;
 	number_of_followings = 0;
+	number_of_connections = 0;
 	number_of_posts = 0;
 }
+///////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////// getters ///////////////////////////////////
-long User::getID()
+long User::getID() const
 {
 	return ID;
 }
@@ -62,5 +72,4 @@ void User::addPost(const string& post)
 void User::addFollowee(const long ID)
 {
 	following_IDs_list.push_back(ID);
-	//TODO: search for ID class and get his list of follwers and add this->ID in that list
 }
