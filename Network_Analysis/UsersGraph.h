@@ -2,20 +2,21 @@
 #define USERSGRAPH_H
 
 #include "User.h"
+#include "../XML2tree/XMLtoTree.cpp"
 
 class UsersGraph {
-	vector<User *> users_list;
-	User *most_influencer_user;	// has the most followers
-	User *most_active_user;		// connected to lots of users
+	vector<User > users_list;
+	User most_influencer_user;	// has the most followers
+	User most_active_user;		// connected to lots of users
 
 public:
-	UsersGraph();
+	UsersGraph(treeNode* t);
 	// getters
-	vector<User *> getUsers();
-	User* getMostInfluencerUser();
-	User* getMostActiveUser();
+	vector<User > getUsers();
+	User& getMostInfluencerUser();
+	User& getMostActiveUser();
 	// methods
-	void addUser(User *user);
+	void addUser(User user);
 	vector<User *> getMutualFollowers(const vector<long>& IDs);
 };
 
