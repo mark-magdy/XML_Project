@@ -26,10 +26,6 @@ long User::getID() const
 {
 	return ID;
 }
-//long User::getNFollowers()
-//{
-//    return number_of_followers;
-//}
 
 string User::getName()
 {

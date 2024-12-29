@@ -6,24 +6,24 @@
 class UserBSTNode
 {
 public:
-	User user;
+	User* user;
 	UserBSTNode* left;
 	UserBSTNode* right;
-	UserBSTNode(const User& user);
+	UserBSTNode(User* user);
 };
 
 class UsersBST
 {
 	UserBSTNode* root;
 
-	UserBSTNode* insertNode (UserBSTNode* node, const User& user);
+	UserBSTNode* insertNode (UserBSTNode* node, User* user);
 	User* findNodeByID (UserBSTNode* node, long id) const;
 	void deleteTree(UserBSTNode* node);
 
 public:
 	UsersBST();
 	~UsersBST();
-	void insert(const User& user);
+	void insert(User* user);
 	User* findByID(long id) const;
 };
 

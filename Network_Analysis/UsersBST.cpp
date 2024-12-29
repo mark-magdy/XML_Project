@@ -1,6 +1,6 @@
 #include "UsersBST.h"
 
-UserBSTNode::UserBSTNode(const User& user) : user(user), left(nullptr), right(nullptr)
+UserBSTNode::UserBSTNode(User* user) : user(user), left(nullptr), right(nullptr)
 {
 }
 
@@ -24,13 +24,13 @@ void UsersBST::deleteTree(UserBSTNode* node) {
 	delete node;
 }
 
-UserBSTNode* UsersBST::insertNode(UserBSTNode* node, const User& user)
+UserBSTNode* UsersBST::insertNode(UserBSTNode* node, User* user)
 {
 	if (node == nullptr)
 	{
-		return  new UserBSTNode(user);
+		return new UserBSTNode(user);
 	}
-	else if (user.getID() < node->user.getID())
+	else if (user->getID() < node->user->getID())
 	{
 		node->left = insertNode(node->left, user);
 	}
@@ -47,18 +47,18 @@ User* UsersBST::findNodeByID(UserBSTNode* node, long id) const
 	{
 		return nullptr;
 	}
-	else if (node->user.getID() == id)
+	else if (node->user->getID() == id)
 	{
-		return &node->user;
+		return node->user;
 	}
-	else if (id < node->user.getID())
+	else if (id < node->user->getID())
 	{
 		return findNodeByID(node->left, id);
 	}
 	return findNodeByID(node->right, id);
 }
 
-void UsersBST::insert(const User& user)
+void UsersBST::insert(User* user)
 {
 	root = insertNode(root, user);
 }

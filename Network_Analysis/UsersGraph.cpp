@@ -39,7 +39,7 @@ UsersGraph::UsersGraph(treeNode* t)
 					{
 						user = new User();
 						user->ID = user_id;
-						users_list.insert(*user);
+						users_list.insert(user);
 					}
 				}
 				else if (data == "name")
@@ -100,7 +100,7 @@ UsersGraph::UsersGraph(treeNode* t)
 								if (most_active_user->number_of_connections < user2->number_of_connections)
 									most_active_user = user2;
 
-								users_list.insert(*user2);
+								users_list.insert(user2);
 							}
 							//handling suggested friends to the following users if have
 							if (!user->following_IDs_list.empty())
@@ -180,7 +180,7 @@ User* UsersGraph::getMostActiveUser()
 ///////////////////////////////////////////////////////////////////////////////
 void UsersGraph::addUser(User* user)
 {
-	users_list.insert(*user);
+	users_list.insert(user);
 }
 
 
