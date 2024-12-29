@@ -6,6 +6,7 @@
 #include "validation/validate.hpp"
 //#include "beauty/beautify.h"
 #include "indentation/codes.h" 
+#include "CMD/CMD.h"
 
  
 #endif
