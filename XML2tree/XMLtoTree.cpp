@@ -155,13 +155,13 @@ void see_roots (vector <treeNode*> test){
         see_tree(test[i]);
     }
 }
-int main()
-{
-  string str = R"(<users> <a><c>00</c></a> <b></b> </users> <new> <A> </A> </new>)";
-  vector <treeNode*> test = totree(str);
-
-  //testing
-  see_roots(test);
-  //cout<<test[0]->identifier; //issue
-    return 0;
-}
+//int main()
+//{
+//  string str = R"(<users> <a><c>00</c></a> <b></b> </users> <new> <A> </A> </new>)";
+//  vector <treeNode*> test = totree(str);
+//
+//  //testing
+//  see_roots(test);
+//  //cout<<test[0]->identifier; //issue
+//    return 0;
+//}
