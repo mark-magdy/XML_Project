@@ -1,3 +1,6 @@
+//
+// Created by kiro3 on 12/30/2024.
+//
 #include <bits/stdc++.h>
 #include <fstream>
 #include <cstdlib>
@@ -6,44 +9,6 @@
 
 //#include "User.h"
 #include "UsersGraph.cpp"
-
-using namespace std;
-
-void print_user(UserBSTNode* root)
-{
-    if(root== nullptr)return;
-    User *user=root->user;
-    cout<<user->getID()<<endl;
-    cout<<user->getName()<<endl;
-    cout<<"followers: ";
-    for(long follwer_id:user->getFollowersIDsList())
-    {
-        cout<<follwer_id<<" ";
-    }
-    cout<<endl<<"following: ";
-    for(long follwer_id:user->getFollowingIDsList())
-    {
-        cout<<follwer_id<<" ";
-    }
-    cout<<endl<<"suggested friends: ";
-    for(long follwer_id:user->getSuggestedFriendsIDsList())
-    {
-        cout<<follwer_id<<" ";
-    }
-    cout<<endl;
-    cout<<"number of followers -  number of follows - number of connections"<<endl;
-    cout<<user->getNumOfFollowers()<<" "<<user->getNumOfFollowings()<<" "<<user->getNumOfConnections()<<endl;
-    cout<<"number of posts: "<<user->getNumOfPosts()<<endl;
-    for(post p:user->getPostsList())
-    {
-        cout<<"body: "<<p.content<<endl;
-        cout<<"topics: ";
-        for(string t:p.topics)cout<<t<<" ";
-        cout<<endl;
-    }
-    print_user(root->left);
-    print_user(root->right);
-}
 string print_edge_list(UserBSTNode* root)
 {
     if(root== nullptr)return "";
@@ -57,13 +22,20 @@ string print_edge_list(UserBSTNode* root)
     }
 
     temp+=print_edge_list(root->left);
-   temp+= print_edge_list(root->right);
-   return temp;
+    temp+= print_edge_list(root->right);
+    return temp;
 }
-
-void convertDotToPng(const std::string& dotFile, const std::string& pngFile) {
+void convertDotToPng(const std::string& dotFile, const std::string& outFile) {
     // Construct the command to convert DOT to PNG
-    std::string command = "dot -Tpng ./Network_Analysis/" + dotFile + " -o ./Network_Analysis/" + pngFile;
+    string dir="";
+    bool write=0;
+    for(int i=0;i<outFile.size();i++)
+    {
+       if(write) dir+=outFile[i];
+        if(outFile[i]=='.')write=1;
+
+    }
+    std::string command = "dot -T"+dir+" ./Network_Analysis/" + dotFile + " -o ./Network_Analysis/" + outFile;
 
     // Execute the command
     int result = system(command.c_str());
@@ -73,11 +45,41 @@ void convertDotToPng(const std::string& dotFile, const std::string& pngFile) {
         std::cerr << "Error: Failed to generate PNG file from DOT file." << std::endl;
         exit(1);
     } else {
-        std::cout << "Successfully generated PNG file: " << pngFile << std::endl;
+        std::cout << "Successfully generated PNG file: " << outFile << std::endl;
     }
 }
-int main()
+
+void draw_graph(string xml ,string outputFile)
 {
+    vector <treeNode*> test = totree(xml);
+    treeNode* test_tree=test[0];
+    UsersGraph *usersGraph=new UsersGraph(test_tree);
+
+    // Open the file to write the DOT graph
+    std::ofstream dotFile("./Network_Analysis/graph.dot");
+
+    // Check if the file was opened successfully
+    if (!dotFile) {
+        std::cerr << "Error opening the file!" << std::endl;
+        return ;
+    }
+
+    // Write a basic graph description in DOT language
+    dotFile << "digraph G {\n";
+    dotFile << print_edge_list(usersGraph->getUsers().getRoot());
+    dotFile << "}\n";
+
+    // Close the file
+    dotFile.close();
+
+    std::cout << "DOT file created successfully!" << std::endl;
+    std::string dotfile = "graph.dot";  // The DOT file that will be created
+
+    std::string pngFile = outputFile; // The PNG file that will be generated
+    convertDotToPng(dotfile, pngFile);
+}
+
+int main() {
     std::string xml = R"(
 <users>
     <user>
@@ -174,53 +176,7 @@ int main()
 
 
 )";
+    string outputFile="kiro.tiff";
+    draw_graph(xml,outputFile);
 
-    vector <treeNode*> test = totree(xml);
-
-  //testing
-  //see_roots(test);
-  treeNode* test_tree=test[0];
-  UsersGraph *usersGraph=new UsersGraph(test_tree);
-
-    // Open the file to write the DOT graph
-    std::ofstream dotFile("./Network_Analysis/graph.dot");
-
-    // Check if the file was opened successfully
-    if (!dotFile) {
-        std::cerr << "Error opening the file!" << std::endl;
-        return 1;
-    }
-
-    // Write a basic graph description in DOT language
-    dotFile << "digraph G {\n";
-    dotFile << print_edge_list(usersGraph->getUsers().getRoot());
-    dotFile << "}\n";
-
-    // Close the file
-    dotFile.close();
-
-    std::cout << "DOT file created successfully!" << std::endl;
-    std::string dotfile = "graph.dot";  // The DOT file that will be created
-
-    std::string pngFile = "graph.png"; // The PNG file that will be generated
-    convertDotToPng(dotfile, pngFile);
-
-//    const char* command = "dot -Tpng ./Network_Analysis/graph.dot -o ./Network_Analysis/graph.png";
-//    // Run the command in the shell
-//    int result = system(command);
-//
-//    if (result == 0) {
-//        std::cout << "Command executed successfully!" << std::endl;
-//    } else {
-//        std::cout << "Error executing the command!" << std::endl;
-//    }
-
-
-
- //   cout<< print_edge_list(usersGraph->getUsers().getRoot());
-//  cout<<"most influencer: "<<usersGraph->getMostInfluencerUser()->getID()<<endl;
-//  cout<<"most active : "<<usersGraph->getMostActiveUser()->getID()<<endl;
-
-  //cout<<test[0]->identifier; //issue
-    return 0;
 }

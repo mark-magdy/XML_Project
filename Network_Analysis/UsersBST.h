@@ -1,7 +1,7 @@
 #ifndef USERSBST_H
 #define USERSBST_H
 
-#include "User.h"
+#include "User.cpp"
 
 class UserBSTNode
 {
@@ -25,6 +25,7 @@ public:
 	~UsersBST();
 	void insert(User* user);
 	User* findByID(long id) const;
+    UserBSTNode* getRoot();
 };
 
 #endif //USERSBST_H

@@ -3,14 +3,14 @@
 
 #include <string>
 #include <vector>
-
+#include "post.h"
 using namespace std;
 
 class User
 {
 	long ID;
 	string name;
-	vector<string> posts_list;
+	vector<post> posts_list;
 	vector<long> followers_IDs_list;
 	vector<long> following_IDs_list;
 	vector<long> suggested_friends_IDs_list; // followers of followers
@@ -30,7 +30,7 @@ public:
 	// getters
 	long getID() const;
 	string getName();
-	vector<string> getPostsList();
+	vector<post> getPostsList();
 	vector<long> getFollowersIDsList();
 	vector<long> getFollowingIDsList();
 	vector<long> getSuggestedFriendsIDsList();

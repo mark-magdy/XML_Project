@@ -26,21 +26,15 @@ UsersGraph::UsersGraph(treeNode* t)
 				if (data == "id")
 				{
 					long user_id = stol(tempId->content);
-					bool found = 0;
-					for (User* user1 : users_list)
-					{
-						if (user1->ID == user_id)
-						{
-							found = 1;
-							user = user1;
-						}
-					}
-					if (!found)
+
+                   User *user1=users_list.findByID(user_id);
+					if (user1==nullptr)
 					{
 						user = new User();
 						user->ID = user_id;
 						users_list.insert(user);
 					}
+                    else user=user1;
 				}
 				else if (data == "name")
 				{
@@ -65,12 +59,11 @@ UsersGraph::UsersGraph(treeNode* t)
 								most_active_user = user;
 
 							//update the followings and connections of follower user
-							bool found_fol = 0;
-							for (User* user2 : users_list)
-							{
-								if (user2->ID == fol_id)
+
+                               User *user2=users_list.findByID(fol_id);
+								if (user2!= nullptr)
 								{
-									found_fol = 1;
+									//found_fol = 1;
 									user2->following_IDs_list.push_back(user->ID);
 									user2->number_of_followings++;
 									user2->number_of_connections++;
@@ -88,8 +81,8 @@ UsersGraph::UsersGraph(treeNode* t)
 											user->suggested_friends_IDs_list.push_back(suggested_id);
 									}
 								}
-							}
-							if (!found_fol)
+							//}
+							else
 							{
 								User* user2 = new User();
 								user2->ID = fol_id;
@@ -107,9 +100,10 @@ UsersGraph::UsersGraph(treeNode* t)
 							{
 								for (long following_id : user->following_IDs_list)
 								{
-									for (User* following : users_list)
-									{
-										if (following->ID == following_id)
+//									for (User* following : users_list)
+//									{
+                                        User *following =users_list.findByID(following_id);
+										if (following!= nullptr)
 										{
 											if (find(following->suggested_friends_IDs_list.begin(),
 											         following->suggested_friends_IDs_list.end(),
@@ -117,7 +111,7 @@ UsersGraph::UsersGraph(treeNode* t)
 												following->ID)
 												following->suggested_friends_IDs_list.push_back(fol_id);
 										}
-									}
+//									}
 								}
 							}
 						}
@@ -130,12 +124,43 @@ UsersGraph::UsersGraph(treeNode* t)
 				}
 				else if (data == "posts")
 				{
-					for (treeNode* post : tempId->children)
+					for (treeNode* pos : tempId->children)
 					{
-						if (post->identifier == "post")
+						if (pos->identifier == "post")
 						{
-							user->posts_list.push_back(post->content);
-							user->number_of_posts++;
+                            string content;
+                            vector<string>topics;
+
+                            for (treeNode* cont : pos->children)
+
+                            {
+                                if(cont->identifier=="body")
+                                {
+                                    content =cont->content;
+                                }
+                                else if(cont->identifier=="topics")
+                                {
+                                    for (treeNode* top : cont->children)
+                                    {
+                                        if(top->identifier=="topic")
+                                        {
+                                            topics.push_back(top->content);
+                                        }
+                                        else{
+                                            valid =0;break;
+                                        }
+                                    }
+                                    if (valid==0)break;
+                                }
+                                else
+                                {
+                                    valid=0;break;
+                                }
+                            }
+                            if(valid==0)break;
+                            post p= post(topics,content,user->ID);
+                            user->posts_list.push_back(p);
+                            user->number_of_posts++;
 						}
 						else
 						{
