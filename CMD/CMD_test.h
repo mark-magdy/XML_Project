@@ -1,7 +1,7 @@
 #ifndef CMD_TEST_H
 #define CMD_TEST_H
 
-// #include "../Backend.h"
+#include "../Backend.h"
 #include <iostream>
 #include<cstring>
 #include <fstream>
