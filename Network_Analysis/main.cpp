@@ -1,6 +1,3 @@
-
- //Created by kiro3 on 12/27/2024.
-
 #include <bits/stdc++.h>
 //#include "../XML2tree/XMLtoTree.cpp"
 
@@ -108,10 +105,7 @@ int main()
       }
       cout<<endl;
       cout<<"number of followers -  number of follows - number of connections"<<endl;
-      cout<<user->number_of_followers<<" "<<user->number_of_followings<<" "<<user->number_of_connections<<endl;
-
-
-
+      cout<<user->getNumOfFollowers()<<" "<<user->getNumOfFollowings()<<" "<<user->getNumOfConnections()<<endl;
   }
   cout<<"most influencer: "<<usersGraph->getMostInfluencerUser()->getID()<<endl;
   cout<<"most active : "<<usersGraph->getMostActiveUser()->getID()<<endl;

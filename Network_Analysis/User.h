@@ -34,6 +34,10 @@ public:
 	vector<long> getFollowersIDsList();
 	vector<long> getFollowingIDsList();
 	vector<long> getSuggestedFriendsIDsList();
+	long getNumOfFollowers();
+	long getNumOfFollowings();
+	long getNumOfConnections();
+	long getNumOfPosts();
 	// methods
 	void addPost(const string& post);
 	void addFollowee(long ID);

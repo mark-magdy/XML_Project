@@ -55,6 +55,26 @@ vector<long> User::getSuggestedFriendsIDsList()
 {
 	return suggested_friends_IDs_list;
 }
+
+long User::getNumOfFollowers()
+{
+  return number_of_followers;
+}
+
+long User::getNumOfFollowings()
+{
+  return number_of_followings;
+}
+
+long User::getNumOfConnections()
+{
+  return number_of_connections;
+}
+
+long User::getNumOfPosts()
+{
+  return number_of_posts;
+}
 ///////////////////////////////////////////////////////////////////////////////
 
 void User::addFollower(const long ID)
