@@ -1,7 +1,8 @@
+
 #include "lz77_compression.hpp"
 using namespace std;
 vector<Token> LZ77Compressor::compress(const string& input) {
-    vector<Token> tokens;
+    tokens.clear(); // Clear previous tokens if any
     size_t i = 0;
 
     while (i < input.size()) {
@@ -31,23 +32,31 @@ vector<Token> LZ77Compressor::compress(const string& input) {
             }
         }
 
-        // Store the token (offset, length, next_char)
+        // Store the token (offset, length, next_char) in the class attribute
         tokens.push_back({match_offset, match_length, next_char});
 
         // Move to the next segment
         i += (match_length > 0) ? match_length + 1 : 1;
     }
 
-    return tokens;
+    return tokens; // Optional: Return for debugging purposes
 }
+void LZ77Compressor::saveCompressed(const string& filePath, const string& filename) {
+    string finalFilePath = filePath;
 
-void LZ77Compressor::saveCompressed(const vector<Token>& tokens, const string& filename) {
-    ofstream file(filename, ios::binary);
+    // Append the filename if the path ends with a directory separator
+    if (filePath.back() == '\\' || filePath.back() == '/') {
+        finalFilePath += filename;
+    }
+
+    // Open the file in binary mode
+    ofstream file(finalFilePath, ios::binary);
     if (!file.is_open()) {
-        cerr << "Error: Could not write to file." << endl;
+        cerr << "Error: Could not write to file at " << finalFilePath << endl;
         return;
     }
 
+    // Write the tokens to the file
     for (const auto& token : tokens) {
         file.write(reinterpret_cast<const char*>(&token.offset), sizeof(token.offset));
         file.write(reinterpret_cast<const char*>(&token.length), sizeof(token.length));
@@ -55,78 +64,84 @@ void LZ77Compressor::saveCompressed(const vector<Token>& tokens, const string& f
     }
 
     file.close();
+    cout << "Compressed data saved to " << finalFilePath << endl;
 }
 
-string LZ77Decompressor::decompress(const vector<Token>& tokens) {
-     string output;
 
-    for (const auto& token : tokens) {
-        if (token.offset > 0 && token.length > 0) {
-            int start = output.size() - token.offset;
-            for (int i = 0; i < token.length; ++i) {
-                output += output[start + i];
-            }
-        }
-        if (token.next_char != '\0') {
-            output += token.next_char;
-        }
+
+
+ string LZ77Decompressor::decompress(const  vector<Token>& tokens) {
+   string output;
+
+  for (const auto& token : tokens) {
+    if (token.offset > 0 && token.length > 0) {
+      int start = output.size() - token.offset;
+      for (int i = 0; i < token.length; ++i) {
+        output += output[start + i];
+      }
     }
+    if (token.next_char != '\0') {
+      output += token.next_char;
+    }
+  }
 
-    return output;
+  return output;
 }
 
-void LZ77Decompressor::saveDecompressed(const string& data, const string& filename) {
-     ofstream file(filename);
+ vector<Token> LZ77Decompressor::readTokensFromFile(const  string& filePath) {
+   vector<Token> tokens;
+
+   ifstream file(filePath,  ios::binary);
+  if (!file.is_open()) {
+     cerr << "Error: Could not open file for reading!" <<  endl;
+    return tokens;
+  }
+
+  while (file.peek() != EOF) {
+    Token token;
+    file.read(reinterpret_cast<char*>(&token.offset), sizeof(token.offset));
+    file.read(reinterpret_cast<char*>(&token.length), sizeof(token.length));
+    file.read(reinterpret_cast<char*>(&token.next_char), sizeof(token.next_char));
+
+    tokens.push_back(token);
+  }
+
+  file.close();
+  return tokens;
+}
+
+ string LZ77Decompressor::decompressFromFile(const  string& filePath) {
+   vector<Token> tokens = readTokensFromFile(filePath);
+  return decompress(tokens);
+}
+
+
+void LZ77Decompressor::saveDecompressed(const string& data, const string& filePath, const string& filename) {
+    // Combine path and filename into a full file path
+    string fullFilePath = filePath;
+    
+    // Check if the path ends with a directory separator, and if not, add it
+    if (filePath.back() != '\\' && filePath.back() != '/') {
+        fullFilePath += '\\'; // Add separator for Windows; use '/' for UNIX-like systems if needed
+    }
+    
+    fullFilePath += filename;
+
+    // Open the file for writing
+    ofstream file(fullFilePath);
     if (!file.is_open()) {
-         cerr << "Error: Could not write to file." <<  endl;
+        cerr << "Error: Could not write to file at " << fullFilePath << endl;
         return;
     }
+
+    // Write the decompressed data to the file
     file << data;
+
+    // Close the file
     file.close();
 }
-/*
-int main() {
-     string filename;
-     cout << "Enter the XML file name: ";
-     cin >> filename;
 
-    // Read the XML file
-     ifstream input_file(filename);
-    if (!input_file.is_open()) {
-         cerr << "Error: Could not open file." <<  endl;
-        return 1;
-    }
 
-     string input;
-     string line;
-    while ( getline(input_file, line)) {
-        input += line + '\n';
-    }
-    input_file.close();
 
-    // Compress the input
-    LZ77Compressor compressor;
-     vector<Token> tokens = compressor.compress(input);
 
-     cout << "\nCompressed tokens:\n";
-    for (const auto& token : tokens) {
-         cout << "(" << token.offset << ", " << token.length << ", '" << token.next_char << "')\n";
-    }
 
-    // Save compressed tokens to a file
-    compressor.saveCompressed(tokens, "compressed_output.lz77");
-     cout << "\nCompressed output saved to 'compressed_output.lz77'." <<  endl;
-
-    // Decompress the tokens
-    LZ77Decompressor decompressor;
-     string decompressed = decompressor.decompress(tokens);
-
-     cout << "\nDecompressed string: " << decompressed <<  endl;
-
-    // Write the decompressed output to a file
-    decompressor.saveDecompressed(decompressed, "decompressed_output.xml");
-     cout << "\nDecompressed output saved to 'decompressed_output.xml'." <<  endl;
-
-    return 0;
-}
-*/
