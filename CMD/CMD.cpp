@@ -4,8 +4,10 @@ using namespace std;
 
 void command_line (int argc,char* argv []){
     int i = 1;
+    LZ77Compressor compression_obj;
+    LZ77Decompressor decompression_obj;
     while (i < argc){
-        if (!strcmp(argv[i],"verify")){
+        if (!strcmp(argv[i],"verify")){             //n2s minaaaa
             string xml ="";
             i++;
             if(!strcmp(argv[i],"-i")){
@@ -24,7 +26,8 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-                pair<bool,string> temp ;//= check_valid(string xml)
+                validation test;
+                pair<bool,string> temp = test.check_valid(xml);
                 if(temp.first) cout<<endl<<"valid"<<endl;
                 else{
                     int errors=0;
@@ -58,7 +61,81 @@ void command_line (int argc,char* argv []){
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"format")){
+        else if (!strcmp(argv[i] ,"format")){       //john done
+            vector<string> xml;
+            i++;
+            if(!strcmp(argv[i],"-i")){
+                i++;
+                string file_name = argv [i];
+                cout<<endl<<"ready for format"<<endl;
+                ifstream fio(file_name, ios::in);
+                if (fio.is_open()) {
+                    string line;
+                    while (getline(fio, line)) {
+                        xml.push_back(line);
+                    }
+                    fio.close();
+                }
+                else {
+                    cout << "Error opening file!" << endl;
+                }
+                prettify(xml);
+                i++;
+                if(!strcmp(argv[i],"-o")){
+                    i++;
+                    string file = argv[i];
+                    ofstream fi(file,ios::out);
+                    if (fi.is_open()) {
+                        for(string x:xml){
+                            fi<<x;
+                        }
+                        fi.close();
+                    }
+                    else {
+                    cout << "Error opening file!" << endl;
+                    }
+                    i++;
+                }
+            }
+        }
+        else if (!strcmp(argv[i] ,"json")){         //jessy done
+            string xml ="";
+            i++;
+            if(!strcmp(argv[i],"-i")){
+                i++;
+                string file_name = argv [i];
+                cout<<endl<<"ready for format"<<endl;
+                ifstream fio(file_name, ios::in);
+                if (fio.is_open()) {
+                    string line;
+                    while (getline(fio, line)) {
+                        xml+=line;
+                        xml+='\n';
+                    }
+                    fio.close();
+                }
+                else {
+                    cout << "Error opening file!" << endl;
+                }
+                vector<treeNode*> test = totree(xml);
+                xml = finalJson(test);
+                i++;
+                if(!strcmp(argv[i],"-o")){
+                    i++;
+                    string file = argv[i];
+                    ofstream fi(file,ios::out);
+                    if (fi.is_open()) {
+                        fi << xml;
+                        fi.close();
+                    }
+                    else {
+                    cout << "Error opening file!" << endl;
+                    }
+                    i++;
+                }
+            }
+        }
+        else if (!strcmp(argv[i] , "mini")){        //john mini done
             vector<string> xml;
             i++;
             if(!strcmp(argv[i],"-i")){
@@ -77,15 +154,17 @@ void command_line (int argc,char* argv []){
                     cout << "Error opening file!" << endl;
                 }
 
-                // xml = pretify;
-
+                minify(xml);
+                
                 i++;
                 if(!strcmp(argv[i],"-o")){
                     i++;
                     string file = argv[i];
                     ofstream fi(file,ios::out);
                     if (fi.is_open()) {
-                        // fi << xml;
+                        for(string x:xml){
+                            fi<<x;
+                        }
                         fi.close();
                     }
                     else {
@@ -95,8 +174,8 @@ void command_line (int argc,char* argv []){
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"json")){
-            string xml;
+        else if (!strcmp(argv[i] ,"compress")){     // john compression done
+            string xml ="";
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
@@ -114,134 +193,29 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-
-                // xml = json;
-                
+                vector<Token> dummy;
+                dummy = compression_obj.compress(xml);
                 i++;
                 if(!strcmp(argv[i],"-o")){
                     i++;
                     string file = argv[i];
-                    ofstream fi(file,ios::out);
-                    if (fi.is_open()) {
-                        // fi << xml;
-                        fi.close();
-                    }
-                    else {
-                    cout << "Error opening file!" << endl;
-                    }
+                    compression_obj.saveCompressed(file, file);
                     i++;
                 }
             }
         }
-        else if (!strcmp(argv[i] , "mini")){
-            vector<string> xml;
-            i++;
-            if(!strcmp(argv[i],"-i")){
-                i++;
-                string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
-                ifstream fio(file_name, ios::in);
-                if (fio.is_open()) {
-                    string line;
-                    while (getline(fio, line)) {
-                        xml.push_back(line);
-                    }
-                    fio.close();
-                }
-                else {
-                    cout << "Error opening file!" << endl;
-                }
-
-                // xml = mini;
-                
-                i++;
-                if(!strcmp(argv[i],"-o")){
-                    i++;
-                    string file = argv[i];
-                    ofstream fi(file,ios::out);
-                    if (fi.is_open()) {
-                        // fi << xml;
-                        fi.close();
-                    }
-                    else {
-                    cout << "Error opening file!" << endl;
-                    }
-                    i++;
-                }
-            }
-        }
-        else if (!strcmp(argv[i] ,"compress")){
+        else if (!strcmp(argv[i] ,"decompress")){   // decompression john done
             string xml;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
-                ifstream fio(file_name, ios::in);
-                if (fio.is_open()) {
-                    string line;
-                    while (getline(fio, line)) {
-                        xml+=line;
-                        xml+='\n';
-                    }
-                    fio.close();
-                }
-                else {
-                    cout << "Error opening file!" << endl;
-                }
-
-                // xml = json;
-                
+                xml = decompression_obj.decompressFromFile(file_name);
                 i++;
                 if(!strcmp(argv[i],"-o")){
                     i++;
                     string file = argv[i];
-                    ofstream fi(file,ios::out);
-                    if (fi.is_open()) {
-                        // fi << xml;
-                        fi.close();
-                    }
-                    else {
-                    cout << "Error opening file!" << endl;
-                    }
-                    i++;
-                }
-            }
-        }
-        else if (!strcmp(argv[i] ,"decompress")){
-            string xml;
-            i++;
-            if(!strcmp(argv[i],"-i")){
-                i++;
-                string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
-                ifstream fio(file_name, ios::in);
-                if (fio.is_open()) {
-                    string line;
-                    while (getline(fio, line)) {
-                        xml+=line;
-                        xml+='\n';
-                    }
-                    fio.close();
-                }
-                else {
-                    cout << "Error opening file!" << endl;
-                }
-
-                // xml = json;
-                
-                i++;
-                if(!strcmp(argv[i],"-o")){
-                    i++;
-                    string file = argv[i];
-                    ofstream fi(file,ios::out);
-                    if (fi.is_open()) {
-                        // fi << xml;
-                        fi.close();
-                    }
-                    else {
-                    cout << "Error opening file!" << endl;
-                    }
+                    decompression_obj.saveDecompressed(xml,file, file);
                     i++;
                 }
             }
