@@ -142,6 +142,10 @@ void MainWindow::showAboutDialog() {
 MainWindow* globalWindow;
 
 int main(int argc, char* argv[]) {
+    if(argc > 1){
+        command_line(argc,argv);
+        return 0;
+    }
     QApplication app(argc, argv);
     globalVar = &app; 
     MainWindow* browser= new MainWindow(); 
