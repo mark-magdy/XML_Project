@@ -9,12 +9,20 @@ User::User(const long ID, const string& name)
 	number_of_followings = 0;
 	number_of_posts = 0;
 }
+User::User()
+{
+
+}
 
 /////////////////////////////////// getters ///////////////////////////////////
 long User::getID()
 {
 	return ID;
 }
+//long User::getNFollowers()
+//{
+//    return number_of_followers;
+//}
 
 string User::getName()
 {
