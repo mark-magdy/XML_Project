@@ -67,6 +67,10 @@ UsersGraph::UsersGraph(treeNode* t)
 									user2->following_IDs_list.push_back(user->ID);
 									user2->number_of_followings++;
 									user2->number_of_connections++;
+                                    //erase the following from the suggested list
+                                    auto i=find(user2->suggested_friends_IDs_list.begin(),user2->suggested_friends_IDs_list.end(),user->ID);
+                                    if(i!=user2->suggested_friends_IDs_list.end())
+                                        user2->suggested_friends_IDs_list.erase(i);
 
 									if (most_active_user->number_of_connections < user2->number_of_connections)
 										most_active_user = user2;
@@ -77,7 +81,9 @@ UsersGraph::UsersGraph(treeNode* t)
 										if (find(user->suggested_friends_IDs_list.begin(),
 										         user->suggested_friends_IDs_list.end(),
 										         suggested_id) == user->suggested_friends_IDs_list.end() && suggested_id
-											!= user->ID)
+											!= user->ID&&find(user->following_IDs_list.begin(),
+                                                              user->following_IDs_list.end(),
+                                                              suggested_id) == user->following_IDs_list.end())
 											user->suggested_friends_IDs_list.push_back(suggested_id);
 									}
 								}
@@ -108,7 +114,9 @@ UsersGraph::UsersGraph(treeNode* t)
 											if (find(following->suggested_friends_IDs_list.begin(),
 											         following->suggested_friends_IDs_list.end(),
 											         fol_id) == following->suggested_friends_IDs_list.end() && fol_id !=
-												following->ID)
+												following->ID&&find(following->following_IDs_list.begin(),
+                                                                    following->following_IDs_list.end(),
+                                                                    fol_id) == following->following_IDs_list.end())
 												following->suggested_friends_IDs_list.push_back(fol_id);
 										}
 //									}
