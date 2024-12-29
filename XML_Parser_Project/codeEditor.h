@@ -6,16 +6,21 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QPlainTextEdit>
+#include "highlighter.h" 
 
 class codeEditor : public QWidget {
     Q_OBJECT
 
 public:
-    codeEditor(QWidget* parent = nullptr);
+     explicit codeEditor(QWidget* parent = nullptr);
 private slots:
-    void BrowseClick();
-
-private:
+    void onBrowseClicked();
+public:
     QPlainTextEdit* editor;
-    QPushButton* browse = new QPushButton("Browse", this);
+    //QLabel* fileLabel = new QLabel("No File Choosen",this);
+    //QPushButton* browse = new QPushButton("Browse", this);
+    QLabel* fileLabel = new QLabel(this);
+    QPushButton* browseButton = new QPushButton("Browse", this);
+    CodeHighlighter* myHighlighter ;
 };
+

@@ -6,11 +6,12 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QPlainTextEdit>
+
 class functionBtns : public QWidget
 {
     Q_OBJECT
 public:
-    functionBtns(QWidget* parent = nullptr);
+    explicit functionBtns(QWidget* parent = nullptr);
 
 private slots:
     void ValidateBtnClick();
@@ -21,11 +22,11 @@ private slots:
     void DeCompressBtnClick();
 
 private:
+    //MainWindow* glbContext;
     QPushButton* Validate = new QPushButton("Validate", this),
         * ToJSON = new QPushButton("ToJSON", this),
         * Beautify = new QPushButton("Beautify", this),
         * Minify = new QPushButton("Minify", this),
         * Compress = new QPushButton("Compress", this),
         * DeCompress = new QPushButton("DeCompress", this);
-
 };

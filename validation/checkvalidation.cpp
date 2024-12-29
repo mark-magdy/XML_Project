@@ -1,3 +1,4 @@
+
 #include"validate.hpp"
 
 int count_opening = 0;

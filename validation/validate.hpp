@@ -1,3 +1,4 @@
+
 #ifndef VALIDATE_HPP
 #define VALIDATE_HPP
 

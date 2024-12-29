@@ -7,8 +7,6 @@
 #include <QLabel>
 #include <QPlainTextEdit>
 
-
-
 class outputWindow : public QWidget {
     Q_OBJECT
 

@@ -1,4 +1,5 @@
 #include "functionBtns.h"
+
 functionBtns::functionBtns(QWidget* parent)
 	: QWidget(parent) {
 	QHBoxLayout* btnsLayout = new QHBoxLayout(this);
@@ -17,31 +18,3 @@ functionBtns::functionBtns(QWidget* parent)
 	connect(Compress, &QPushButton::clicked, this, &functionBtns::CompressBtnClick);
 	connect(DeCompress, &QPushButton::clicked, this, &functionBtns::DeCompressBtnClick);
 }
-
-
-
-void functionBtns::ValidateBtnClick() {
-	qDebug() << "Validate button clicked.";
-}
-
-void functionBtns::ToJSONBtnClick() {
-	qDebug() << "ToJSON button clicked.";
-}
-
-void functionBtns::BeautifyBtnClick() {
-	qDebug() << "Beautify button clicked.";
-}
-
-void functionBtns::MinifyBtnClick() {
-	qDebug() << "Minify button clicked.";
-}
-
-void functionBtns::CompressBtnClick() {
-	qDebug() << "Compress button clicked.";
-}
-
-void functionBtns::DeCompressBtnClick() {
-	qDebug() << "DeCompress button clicked.";
-}
-
-
