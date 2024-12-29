@@ -5,6 +5,35 @@
 #include "UsersGraph.cpp"
 
 using namespace std;
+
+void print_user(UserBSTNode* root)
+{
+    if(root== nullptr)return;
+    User *user=root->user;
+    cout<<user->getID()<<endl;
+    cout<<user->getName()<<endl;
+    cout<<"followers: ";
+    for(long follwer_id:user->getFollowersIDsList())
+    {
+        cout<<follwer_id<<" ";
+    }
+    cout<<endl<<"following: ";
+    for(long follwer_id:user->getFollowingIDsList())
+    {
+        cout<<follwer_id<<" ";
+    }
+    cout<<endl<<"suggested friends: ";
+    for(long follwer_id:user->getSuggestedFriendsIDsList())
+    {
+        cout<<follwer_id<<" ";
+    }
+    cout<<endl;
+    cout<<"number of followers -  number of follows - number of connections"<<endl;
+    cout<<user->getNumOfFollowers()<<" "<<user->getNumOfFollowings()<<" "<<user->getNumOfConnections()<<endl;
+    print_user(root->left);
+    print_user(root->right);
+}
+
 int main()
 {
     std::string xml = R"(
@@ -84,29 +113,8 @@ int main()
   //see_roots(test);
   treeNode* test_tree=test[0];
   UsersGraph *usersGraph=new UsersGraph(test_tree);
-  for(User *user:usersGraph->getUsers())
-  {
-      cout<<user->getID()<<endl;
-      cout<<user->getName()<<endl;
-      cout<<"followers: ";
-      for(long follwer_id:user->getFollowersIDsList())
-      {
-          cout<<follwer_id<<" ";
-      }
-      cout<<endl<<"following: ";
-      for(long follwer_id:user->getFollowingIDsList())
-      {
-          cout<<follwer_id<<" ";
-      }
-      cout<<endl<<"suggested friends: ";
-      for(long follwer_id:user->getSuggestedFriendsIDsList())
-      {
-          cout<<follwer_id<<" ";
-      }
-      cout<<endl;
-      cout<<"number of followers -  number of follows - number of connections"<<endl;
-      cout<<user->getNumOfFollowers()<<" "<<user->getNumOfFollowings()<<" "<<user->getNumOfConnections()<<endl;
-  }
+
+    print_user(usersGraph->getUsers().getRoot());
   cout<<"most influencer: "<<usersGraph->getMostInfluencerUser()->getID()<<endl;
   cout<<"most active : "<<usersGraph->getMostActiveUser()->getID()<<endl;
 

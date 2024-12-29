@@ -67,3 +67,6 @@ User* UsersBST::findByID(long id) const
 {
 	return findNodeByID(root, id);
 }
+UserBSTNode* UsersBST::getRoot() {
+    return root;
+}
