@@ -1,3 +1,4 @@
+
 #include "lz77_compression.hpp"
 using namespace std;
 vector<Token> LZ77Compressor::compress(const string& input) {
