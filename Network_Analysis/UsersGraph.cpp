@@ -124,12 +124,43 @@ UsersGraph::UsersGraph(treeNode* t)
 				}
 				else if (data == "posts")
 				{
-					for (treeNode* post : tempId->children)
+					for (treeNode* pos : tempId->children)
 					{
-						if (post->identifier == "post")
+						if (pos->identifier == "post")
 						{
-							user->posts_list.push_back(post->content);
-							user->number_of_posts++;
+                            string content;
+                            vector<string>topics;
+
+                            for (treeNode* cont : pos->children)
+
+                            {
+                                if(cont->identifier=="body")
+                                {
+                                    content =cont->content;
+                                }
+                                else if(cont->identifier=="topics")
+                                {
+                                    for (treeNode* top : cont->children)
+                                    {
+                                        if(top->identifier=="topic")
+                                        {
+                                            topics.push_back(top->content);
+                                        }
+                                        else{
+                                            valid =0;break;
+                                        }
+                                    }
+                                    if (valid==0)break;
+                                }
+                                else
+                                {
+                                    valid=0;break;
+                                }
+                            }
+                            if(valid==0)break;
+                            post p= post(topics,content,user->ID);
+                            user->posts_list.push_back(p);
+                            user->number_of_posts++;
 						}
 						else
 						{

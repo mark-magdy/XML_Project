@@ -32,7 +32,7 @@ string User::getName()
 	return name;
 }
 
-vector<string> User::getPostsList()
+vector<post> User::getPostsList()
 {
 	return posts_list;
 }
@@ -84,11 +84,7 @@ void User::addSuggestedFriend(const long ID)
 	suggested_friends_IDs_list.push_back(ID);
 }
 
-void User::addPost(const string& post)
-{
-	posts_list.push_back(post);
-	number_of_posts++;
-}
+
 
 void User::addFollowee(const long ID)
 {

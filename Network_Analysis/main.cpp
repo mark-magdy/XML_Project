@@ -30,6 +30,14 @@ void print_user(UserBSTNode* root)
     cout<<endl;
     cout<<"number of followers -  number of follows - number of connections"<<endl;
     cout<<user->getNumOfFollowers()<<" "<<user->getNumOfFollowings()<<" "<<user->getNumOfConnections()<<endl;
+    cout<<"number of posts: "<<user->getNumOfPosts()<<endl;
+    for(post p:user->getPostsList())
+    {
+        cout<<"body: "<<p.content<<endl;
+        cout<<"topics: ";
+        for(string t:p.topics)cout<<t<<" ";
+        cout<<endl;
+    }
     print_user(root->left);
     print_user(root->right);
 }
@@ -39,68 +47,81 @@ int main()
     std::string xml = R"(
 <users>
     <user>
-        <id>101</id>
-        <name>Michael Scott</name>
+        <id>1</id>
+        <name>Ahmed Ali</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        economy
+                    </topic>
+                    <topic>
+                        finance
+                    </topic>
+                </topics>
+            </post>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        solar_energy
+                    </topic>
+                </topics>
+            </post>
+        </posts>
         <followers>
             <follower>
-                <id>202</id>
+                <id>2</id>
             </follower>
             <follower>
-                <id>303</id>
-            </follower>
-            <follower>
-                <id>404</id>
+                <id>3</id>
             </follower>
         </followers>
     </user>
     <user>
-        <id>202</id>
-        <name>Dwight Schrute</name>
+        <id>2</id>
+        <name>Yasser Ahmed</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        education
+                    </topic>
+                </topics>
+            </post>
+        </posts>
         <followers>
             <follower>
-                <id>101</id>
+                <id>1</id>
             </follower>
         </followers>
     </user>
     <user>
-        <id>303</id>
-        <name>Jim Halpert</name>
+        <id>3</id>
+        <name>Mohamed Sherif</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        sports
+                    </topic>
+                </topics>
+            </post>
+        </posts>
         <followers>
             <follower>
-                <id>101</id>
-            </follower>
-            <follower>
-                <id>202</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>404</id>
-        <name>Angela Martin</name>
-        <followers>
-            <follower>
-                <id>202</id>
-            </follower>
-            <follower>
-                <id>303</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>505</id>
-        <name>Pam Beesly</name>
-        <followers>
-            <follower>
-                <id>303</id>
-            </follower>
-            <follower>
-                <id>101</id>
-            </follower>
-            <follower>
-                <id>202</id>
-            </follower>
-            <follower>
-                <id>404</id>
+                <id>1</id>
             </follower>
         </followers>
     </user>
