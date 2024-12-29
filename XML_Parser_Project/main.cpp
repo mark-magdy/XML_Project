@@ -160,6 +160,12 @@ int main(int argc, char* argv[]) {
 
 
 void functionBtns::ValidateBtnClick() {
+    QString curText = globalWindow->input->editor->toPlainText();
+
+    
+    globalWindow->output->setOutputText(curText);
+
+
     qDebug() << "Validate button clicked.";
 
 }
