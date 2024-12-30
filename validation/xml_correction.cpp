@@ -26,7 +26,7 @@ vector <string> lines_extraction(string filepath){
 
     return xml_lines;
 }
-
+/*
 vector <string> correct_xml(string xml_string){
 
     int error_line_number;
@@ -49,12 +49,12 @@ vector <string> correct_xml(string xml_string){
                 lines[error_line_number-1] = "<"+tag_missing+">"+lines[error_line_number-1];
                 else
                 lines[error_line_number-1] = "</"+tag_missing+">"+lines[error_line_number-1];
-             }
+            }
 
     }
     return lines;
 }
-
+*/
 void writeback_file(vector <string> xml_lines,string filepath){
     ofstream output_file(filepath);
     if(output_file.is_open()){

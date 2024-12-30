@@ -1,10 +1,24 @@
 
 #include"validate.hpp"
-
+/*
 int count_opening = 0;
 int count_closing = 0;
 vector<int> line_num;
 vector<string> lines; // vector of strings to push content of each line
+*/
+int count_opening;
+int count_closing;
+
+vector<int>line_num; // to count number of lines and use it 
+vector<string> lines; // vector of strings to push content of each line
+
+
+stack<string> s1_stack;
+stack<string> s2_stack;
+stack<int> s3_stack;
+stack<string>* s1 = &s1_stack;
+stack<string>* s2 = &s2_stack;
+stack<int>* s3 = &s3_stack;
 vector<string> validation:: extract_tag(string str,int num) { 
 	vector<string> tags;
 
@@ -169,7 +183,7 @@ pair<bool,string> validation:: check_valid(string input_xml,stack<string>* tag_t
 	
 	return {valid,errors_GUI}; // return the validity of the XML
 }
-
+/*
 int main() {
     string filename = "sample.xml";
 	string xmlData ="<users><id>1</id><name>Ahmed Ali</name><posts><post><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</body><topics><topic>economy</topic><topic>finance</topic></topics></post><post><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</body><topics><topic>solar_energy</topic></topics></post></posts><followers><follower><id>2</id></follower><follower><id>3</id></follower></followers></user><user><id>2</id><name>Yasser Ahmed</name><posts><post><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</body><topics><topic>education</topic></topics></post></posts><followers><follower><id>1</id></follower></followers></user><user><id>3</id><name>Mohamed Sherif</name><posts><post><body>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</body><topics><topic>sports</topic></topics></post></posts><followers><follower><id>1</id></follower></followers></user></users>";
@@ -212,3 +226,4 @@ int main() {
 
     return 0;
 }
+*/

@@ -29,18 +29,6 @@ public:
 
 };
 
-extern int count_opening;
-extern int count_closing;
 
-extern vector<int>line_num ; // to count number of lines and use it 
-extern vector<string> lines; // vector of strings to push content of each line
-
-
-stack<string> s1_stack;
-stack<string> s2_stack;
-stack<int> s3_stack;
-stack<string> *s1=&s1_stack;
-stack<string> *s2=&s2_stack;
-stack<int> *s3=&s3_stack;
 
 #endif

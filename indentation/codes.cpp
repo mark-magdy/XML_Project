@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "XMLtoTree.h"
+#include "../XML2tree/XMLtoTree.h"
 using namespace std;
 
 void minify(vector<string>& lines) {

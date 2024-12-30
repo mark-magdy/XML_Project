@@ -142,7 +142,8 @@ void MainWindow::showAboutDialog() {
 MainWindow* globalWindow;
 
 int main(int argc, char* argv[]) {
-    if(argc > 1){
+    cout << "hi ;;" << endl; 
+    if (argc > 1) {
         command_line(argc,argv);
         return 0;
     }
@@ -165,64 +166,89 @@ int main(int argc, char* argv[]) {
 
 void functionBtns::ValidateBtnClick() {
     QString curText = globalWindow->input->editor->toPlainText();
-
-    
-    globalWindow->output->setOutputText(curText);
-
-
+    string processStr = curText.toStdString();
+    validation test;
+    pair<bool, string> isValid = test.check_valid(processStr);
+    if (!isValid.first || processStr == "") {
+        globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
+    }else {
+        string temp = "it is VALID code";
+        globalWindow->output->setOutputText(QString::fromStdString(temp));
+    }
     qDebug() << "Validate button clicked.";
-
 }
+void functionBtns::CorrectBtnClick() {
+    QString curText = globalWindow->input->editor->toPlainText();
+    string processStr = curText.toStdString();
+    validation test;
+    pair<bool, string> isValid = test.check_valid(processStr);
+    if (!isValid.first || processStr == "") { 
 
+        globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
+    }else {
+        globalWindow->output->setOutputText(curText);
+    }
+}
 void functionBtns::ToJSONBtnClick() {
+
     qDebug() << "ToJSON button clicked.";
 
 }
 
 void functionBtns::BeautifyBtnClick() {
     QString curText = globalWindow->input->editor->toPlainText(); 
-    
-    //TODO: validate !!
-    
     string processStr = curText.toStdString(); 
-    vector <treeNode*> ret = totree(processStr); 
-    vector <string> temp; 
-    node_to_vector(ret, temp); 
-    prettify(temp); 
-    string outputStr = ""; 
-    for (auto& i : temp) {
-        outputStr += i;
+    validation test;
+    pair<bool, string> isValid = test.check_valid(processStr);
+    if (!isValid.first || processStr == "") {
+        globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
+    }else {
+        vector <treeNode*> ret = totree(processStr);
+        vector <string> temp;
+        node_to_vector(ret, temp);
+        prettify(temp);
+        string outputStr = "";
+        for (auto& i : temp) {
+            outputStr += i;
+        }
+        globalWindow->output->setOutputText(QString::fromStdString(outputStr));
     }
-    globalWindow->output->setOutputText(QString::fromStdString(outputStr));
     qDebug() << "Beautify button clicked.";
 }
 
 void functionBtns::MinifyBtnClick() {
     QString curText = globalWindow->input->editor->toPlainText();
-
-    //TODO: validate !!
-
     string processStr = curText.toStdString();
-    vector <treeNode*> ret = totree(processStr);
-    vector <string> temp;
-    node_to_vector(ret, temp);
-    minify(temp);
-    string outputStr = "";
-    for (auto& i : temp) {
-        outputStr += i;
+    //TODO: validate !!
+    validation test;
+    pair<bool, string> isValid = test.check_valid(processStr);
+    if (!isValid.first || processStr=="") {
+        globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
+    }else {
+        vector <treeNode*> ret = totree(processStr);
+        vector <string> temp;
+        node_to_vector(ret, temp);
+        minify(temp);
+        string outputStr = "";
+        for (auto& i : temp) {
+            outputStr += i;
+        }
+        globalWindow->output->setOutputText(QString::fromStdString(outputStr));
     }
-    globalWindow->output->setOutputText(QString::fromStdString(outputStr));
     qDebug() << "Minify button clicked.";
-
 }
 
 void functionBtns::CompressBtnClick() {
+    QString curText = globalWindow->input->editor->toPlainText();
+    string processStr = curText.toStdString();
+    LZ77Compressor compressor;
+    vector<Token> ret = compressor.compress(processStr);
+    
     qDebug() << "Compress button clicked.";
 }
 
 void functionBtns::DeCompressBtnClick() {
     qDebug() << "DeCompress button clicked.";
-
 }
 
 /*

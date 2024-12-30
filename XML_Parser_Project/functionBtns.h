@@ -20,10 +20,12 @@ private slots:
     void MinifyBtnClick();
     void CompressBtnClick();
     void DeCompressBtnClick();
+    void CorrectBtnClick();
 
 private:
     //MainWindow* glbContext;
     QPushButton* Validate = new QPushButton("Validate", this),
+        * Correct = new QPushButton("Correct", this),
         * ToJSON = new QPushButton("ToJSON", this),
         * Beautify = new QPushButton("Beautify", this),
         * Minify = new QPushButton("Minify", this),
