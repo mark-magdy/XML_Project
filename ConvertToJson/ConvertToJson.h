@@ -13,7 +13,8 @@
 #include <cctype>
 #include <algorithm>
 
-
+string finalJson(vector <treeNode*> test);
+string treeToJson(treeNode* node, int indentLevel , bool square ,int rep );
 
 
 #endif //CONVERTTOJSON_H

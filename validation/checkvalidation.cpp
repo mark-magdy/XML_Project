@@ -19,6 +19,21 @@ stack<int> s3_stack;
 stack<string>* s1 = &s1_stack;
 stack<string>* s2 = &s2_stack;
 stack<int>* s3 = &s3_stack;
+validation::validation() {
+	 count_opening=0;
+	 count_closing=0;
+
+	 line_num = vector<int>(); // to count number of lines and use it 
+	 lines= vector<string>(); // vector of strings to push content of each line
+
+
+	s1_stack = stack<string>();
+	 s2_stack= stack<string> () ;
+	s3_stack = stack<int> () ;
+	 s1 = &s1_stack;
+	 s2 = &s2_stack;
+	 s3 = &s3_stack;
+}
 vector<string> validation:: extract_tag(string str,int num) { 
 	vector<string> tags;
 
@@ -106,7 +121,7 @@ pair<bool,string> validation:: check_valid(string input_xml,stack<string>* tag_t
 	}
 	
 	stack<pair<string,int>> tag_stack; // to push tag name of open tags
-	string errors_GUI; // to print errors message in GUI
+	string errors_GUI=""; // to print errors message in GUI
 
 	 count_opening = 0;
 	 count_closing = 0;

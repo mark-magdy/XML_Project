@@ -167,14 +167,15 @@ int main(int argc, char* argv[]) {
 void functionBtns::ValidateBtnClick() {
     QString curText = globalWindow->input->editor->toPlainText();
     string processStr = curText.toStdString();
-    validation test;
-    pair<bool, string> isValid = test.check_valid(processStr);
+    validation* test = new validation();
+    pair<bool, string> isValid = test->check_valid(processStr);
     if (!isValid.first || processStr == "") {
         globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
     }else {
         string temp = "it is VALID code";
         globalWindow->output->setOutputText(QString::fromStdString(temp));
     }
+    delete test ; 
     qDebug() << "Validate button clicked.";
 }
 void functionBtns::CorrectBtnClick() {
@@ -190,7 +191,19 @@ void functionBtns::CorrectBtnClick() {
     }
 }
 void functionBtns::ToJSONBtnClick() {
+    QString curText = globalWindow->input->editor->toPlainText();
+    string processStr = curText.toStdString();
+    validation test;
+    pair<bool, string> isValid = test.check_valid(processStr);
+    if (!isValid.first || processStr == "") {
 
+        globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
+    }
+    else {
+        vector <treeNode*> ret = totree(processStr);
+        string out = finalJson(ret);
+        globalWindow->output->setOutputText(QString::fromStdString(out));
+    }
     qDebug() << "ToJSON button clicked.";
 
 }
@@ -238,16 +251,35 @@ void functionBtns::MinifyBtnClick() {
     qDebug() << "Minify button clicked.";
 }
 
+QString getDirectoryPath(QWidget* parent = nullptr) {
+    QString directory = QFileDialog::getExistingDirectory(
+        parent,
+        "Select Directory",
+        QDir::homePath(), // You can set a default directory here
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks
+    );
+    return directory;
+}
 void functionBtns::CompressBtnClick() {
     QString curText = globalWindow->input->editor->toPlainText();
     string processStr = curText.toStdString();
     LZ77Compressor compressor;
     vector<Token> ret = compressor.compress(processStr);
-    
+    QString thePath = getDirectoryPath(); 
+    string pathstd = thePath.toStdString(); 
+    compressor.saveCompressed(pathstd, "Compressed File"); // error 
     qDebug() << "Compress button clicked.";
 }
 
 void functionBtns::DeCompressBtnClick() {
+    LZ77Decompressor decomp; 
+
+
+    QString pathQS = globalWindow->input->fileLabel->text();
+    string decompSTR = decomp.decompressFromFile(pathQS.toStdString());
+    globalWindow->output->setOutputText(QString::fromStdString(decompSTR));
+
+    //decomp.saveCompressed(pathstd, "Compressed File"); // error
     qDebug() << "DeCompress button clicked.";
 }
 
