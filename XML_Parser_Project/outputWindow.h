@@ -16,10 +16,10 @@ public:
 
 
 private slots:
-    //void saveClick();
+    void saveClick();
 
 
-private:
+public:
     QPushButton* saveBtn = new QPushButton("Save as new File", this);
     QPlainTextEdit* outputEdit;
 

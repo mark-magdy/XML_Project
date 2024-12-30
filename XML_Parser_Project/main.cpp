@@ -15,6 +15,10 @@
 #include <QMessageBox>
 #include "../Backend.h"
 
+#include <QFile>
+#include <QTextStream>
+#include <QDir>
+
 QApplication * globalVar ;
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -184,8 +188,10 @@ void functionBtns::CorrectBtnClick() {
     validation test;
     pair<bool, string> isValid = test.check_valid(processStr);
     if (!isValid.first || processStr == "") { 
-
-        globalWindow->output->setOutputText(QString::fromStdString(isValid.second));
+        auto ret = correct_xml(processStr); 
+        string s; 
+        for (auto& i : ret) s += (i+"\n") ;
+        globalWindow->output->setOutputText(QString::fromStdString(s));
     }else {
         globalWindow->output->setOutputText(curText);
     }
@@ -268,6 +274,9 @@ void functionBtns::CompressBtnClick() {
     QString thePath = getDirectoryPath(); 
     string pathstd = thePath.toStdString(); 
     compressor.saveCompressed(pathstd, "Compressed File"); // error 
+    
+    
+    qDebug() <<pathstd;
     qDebug() << "Compress button clicked.";
 }
 
@@ -283,6 +292,47 @@ void functionBtns::DeCompressBtnClick() {
     qDebug() << "DeCompress button clicked.";
 }
 
+
+
+bool saveContentToFile(const QString& path, const QString& filename, const QString& content, QWidget* parent = nullptr) {
+    // Ensure the directory exists
+    QDir dir(path);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+    QString filePath = path + "/" + filename;
+
+    // Open the file for writing
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        if (parent) {
+            QMessageBox::critical(parent, "Error", "Failed to open file for writing.");
+        }
+        return false;
+    }
+    // Write the content to the file
+    QTextStream out(&file);
+    out << content;
+    file.close();
+    return true;
+}
+
+void outputWindow::saveClick() {
+    QString curText = globalWindow->output->outputEdit->toPlainText();
+    QString thePath = getDirectoryPath();
+    bool ret = saveContentToFile(thePath, "XMLprogram.txt", curText);
+    if (ret) {
+        globalWindow->output->setOutputText(QString::fromStdString("SAVED .. DONE! "));
+
+    }
+    else {
+        globalWindow->output->setOutputText(QString::fromStdString("ERROR .. try again diffrent Path"));
+
+    }
+    
+}
+
+
 /*
 
 #include "XML_Parser_Project.h"
@@ -297,6 +347,10 @@ int main(int argc, char *argv[])
 }
 
 */
+
+
+
+
 
 
 

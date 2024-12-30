@@ -6,6 +6,14 @@
 #include "validate.hpp"
 using namespace std;
 
+stack<string> s1_stack;
+stack<string> s2_stack;
+stack<int> s3_stack;
+stack<string>* s1 = &s1_stack;
+stack<string>* s2 = &s2_stack;
+stack<int>* s3 = &s3_stack;
+
+extern vector<string>lines;
 
 vector <string> lines_extraction(string filepath){
     vector <string> xml_lines;
@@ -26,7 +34,7 @@ vector <string> lines_extraction(string filepath){
 
     return xml_lines;
 }
-/*
+
 vector <string> correct_xml(string xml_string){
 
     int error_line_number;
@@ -54,7 +62,7 @@ vector <string> correct_xml(string xml_string){
     }
     return lines;
 }
-*/
+
 void writeback_file(vector <string> xml_lines,string filepath){
     ofstream output_file(filepath);
     if(output_file.is_open()){

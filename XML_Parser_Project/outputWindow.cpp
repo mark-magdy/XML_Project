@@ -2,6 +2,10 @@
 
 outputWindow::outputWindow(QWidget* parent)
     : QWidget(parent) {
+
+    connect(saveBtn, &QPushButton::clicked, this, &outputWindow::saveClick);
+
+
     outputEdit = new QPlainTextEdit(this);
     outputEdit->setReadOnly(true);  // Make the text output field read-only
     outputEdit->setPlaceholderText("OUTPUT");

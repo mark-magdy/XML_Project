@@ -28,6 +28,6 @@ public:
 
 };
 
-
+vector <string> correct_xml(string xml_string);
 
 #endif
