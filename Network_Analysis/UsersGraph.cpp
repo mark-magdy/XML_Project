@@ -217,7 +217,35 @@ void UsersGraph::addUser(User* user)
 }
 
 
-vector<User*> UsersGraph::getMutualFollowers(const vector<long>& IDs)
+vector<long> UsersGraph::getMutualFollowers(const vector<long>& IDs)
 {
-	//TODO: Implementation
+	int size = IDs.size() ,i = 1;
+	vector<long> result,empty;
+	unordered_map<long,int> freq;
+	bool increased;
+
+	if(IDs.empty())return result;
+	
+	for (long x: IDs){
+		increased =false;
+		User* temp;
+		temp = users_list.findByID(x);
+		if(temp == nullptr){
+			return empty;			//exceptaaaaaaaaaaaaaaaaaaan
+		}
+		for (long folower: temp->getFollowersIDsList()){
+			freq[folower]++;
+			if(freq[folower]==i)increased=true;
+		}
+		if(!increased){
+			return empty;
+		}
+		i++;
+	}
+	for (const auto& map_it: freq){
+		if (map_it.second == size){
+			result.push_back(map_it.first);
+		}
+	}
+	return result;
 }

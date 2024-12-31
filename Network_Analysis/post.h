@@ -5,7 +5,6 @@
 #ifndef XML_PROJECT_POST_H
 #define XML_PROJECT_POST_H
 #include <string>
-#include <string>
 #include <vector>
 #include <algorithm>
 using namespace std;
