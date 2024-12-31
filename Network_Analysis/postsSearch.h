@@ -18,9 +18,8 @@ private:
 
 public:
     postsSearch (UsersGraph* t) ;
-    vector <string>  searchByWord (string ser);
-    vector <string>  searchByTopic (string ser);
+    vector <string> searchByWord (string ser);
+    vector <string> searchByTopic (string ser);
 };
-
 
 #endif //LEVEL2NET_POSTSSEARCH_H
