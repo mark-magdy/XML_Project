@@ -34,9 +34,6 @@ vector <treeNode*> totree(string str_file)
 
      while(i>-1 && i<(str_file.size()))
         {
-            cout<<"i is kaza : "<<i<<endl;
-            cout<<"current char is "<<str_file[i]<<"test"<<endl;
-            cout<<"next char is :"<<str_file[i+1]<<"test"<<endl<<endl;
 
          if(str_file[i]=='<' && str_file[i+1]!='/')        //open tag
                 {
@@ -47,7 +44,7 @@ vector <treeNode*> totree(string str_file)
                     {
                          treeNode* Root = new treeNode();
                         Root->identifier = str_file.substr(i+1,len);
-                        cout<<"new root...."<<Root->identifier;
+                        
                         Root->level = level++;
                         slider=Root;
                     }
@@ -60,14 +57,14 @@ vector <treeNode*> totree(string str_file)
                         slider = new_child;
                     }
                     parents_list.push(slider);
-                    cout<<"ind: "<<index<<" ,ident: "<<slider->identifier<<endl;
+                    
                     i= index + 1; //what is after > ? open tag or content      //<>i
                 }
             else if(str_file[i]!='<') //content                 //issue: detecting new lines as content
                 {
-                    cout<<"content"<<endl;
+                    
                     index = str_file.find('<',i);  //look for the end of content
-                    cout<<"start of content @ "<<index<<endl;
+                    
                     len = index-i;
 
                     check_content = str_file.substr(i,len);
@@ -79,18 +76,16 @@ vector <treeNode*> totree(string str_file)
                             if(start > 0)
                             {
                                 slider->content = check_content.substr(0,start);
-                                cout<<"theres newline @ "<<start<<" cont:"<<slider->content<<endl;
                             }
                             else
                             {
                                 slider->content = check_content;
-                                cout<<check_content<<endl;
                             }
 
                         }
                     else
                         {
-                            cout<<"NO CONTENT"<<endl;
+                            //cout<<"NO CONTENT"<<endl;
                         }
                     i=index;                      //next char is new open tag
                 }
@@ -101,10 +96,7 @@ vector <treeNode*> totree(string str_file)
                     if(slider->identifier==parents_list.top()->identifier)
                         {
                             if(parents_list.size()==1){
-                                    cout<<"The End.."<<parents_list.top()->identifier<<endl;
                                     roots.push_back(slider);
-                                    cout<<roots[0]->identifier<<endl;
-                                    cout<<"Size : "<<roots.size()<<endl;
                                     level =0;
                                     parents_list.pop();
                             }
@@ -116,12 +108,10 @@ vector <treeNode*> totree(string str_file)
                             slider = parents_list.top();
                             temp_go_back->parent = slider;
                             slider->children.push_back(temp_go_back); //adding child to the vector of the parent
-                            cout<<"popped: "<<temp_go_back->identifier<<", current"<<slider->identifier<<endl;
                             }
 
                         }
                         i=str_file.find('<',i+1);  //next open tag
-                        cout<<"next index: :"<<i<<endl;
                 }
         }
 
@@ -134,7 +124,7 @@ void see_tree( treeNode * test)
     cout<<"current : "<<test->identifier<<" "<<test->content<<endl;
     if(test->children.size() == 0)
         {
-            cout<<"no kids"<<endl;
+            //cout<<"no kids"<<endl;
             return ;
         }
     else
@@ -151,19 +141,7 @@ void see_tree( treeNode * test)
 void see_roots (vector <treeNode*> test){
     for(int i=0; i<test.size(); i++)
         {
-            cout<<"Root : "<<test[i]->identifier<<endl;
+            //cout<<"Root : "<<test[i]->identifier<<endl;
         see_tree(test[i]);
     }
 }
-/*
-int main()
-{
-  string str = R"(<users> <a><c>00</c></a> <b></b> </users> <new> <A> </A> </new>)";
-  vector <treeNode*> test = totree(str);
-
-  //testing
-  see_roots(test);
-  //cout<<test[0]->identifier; //issue
-    return 0;
-}
-*/
