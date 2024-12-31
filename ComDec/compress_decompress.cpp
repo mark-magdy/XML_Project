@@ -1,4 +1,3 @@
-
 #include "lz77_compression.hpp"
 using namespace std;
 vector<Token> LZ77Compressor::compress(const string& input) {
@@ -45,8 +44,16 @@ void LZ77Compressor::saveCompressed(const string& filePath, const string& filena
     string finalFilePath = filePath;
 
     // Append the filename if the path ends with a directory separator
+    
+     // Ensure filePath ends with a separator if it's a directory
+    if (filePath.empty()) {
+        cerr << "Error: File path is empty." << endl;
+        return;
+    }
     if (filePath.back() == '\\' || filePath.back() == '/') {
         finalFilePath += filename;
+    } else {
+        finalFilePath += "\\" + filename;  // Ensure proper path formatting for Windows
     }
 
     // Open the file in binary mode
@@ -118,14 +125,18 @@ void LZ77Compressor::saveCompressed(const string& filePath, const string& filena
 
 void LZ77Decompressor::saveDecompressed(const string& data, const string& filePath, const string& filename) {
     // Combine path and filename into a full file path
-    string fullFilePath = filePath;
-    
-    // Check if the path ends with a directory separator, and if not, add it
-    if (filePath.back() != '\\' && filePath.back() != '/') {
-        fullFilePath += '\\'; // Add separator for Windows; use '/' for UNIX-like systems if needed
+    string fullFilePath;
+
+    // Check if the path ends with a directory separator, and handle accordingly
+    if (filePath.empty()) {
+        cerr << "Error: File path is empty." << endl;
+        return;
     }
-    
-    fullFilePath += filename;
+    if (filePath.back() == '\\' || filePath.back() == '/') {
+        fullFilePath = filePath + filename;
+    } else {
+        fullFilePath = filePath + "\\" + filename; // Append backslash for Windows paths
+    }
 
     // Open the file for writing
     ofstream file(fullFilePath);
@@ -139,9 +150,5 @@ void LZ77Decompressor::saveDecompressed(const string& data, const string& filePa
 
     // Close the file
     file.close();
+    cout << "Decompressed data saved to " << fullFilePath << endl;
 }
-
-
-
-
-
