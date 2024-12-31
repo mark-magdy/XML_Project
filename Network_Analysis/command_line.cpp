@@ -1,12 +1,8 @@
-#include <bits/stdc++.h>
-#include <fstream>
-#include <cstdlib>
-#include <cstdio>
+//#include <bits/stdc++.h>
 //#include "../XML2tree/XMLtoTree.cpp"
-
 //#include "User.h"
 #include "Level_2_Command_Line_Functions.h"
-#include "UsersGraph.cpp"
+//#include "UsersGraph.cpp"
 
 string print_edge_list(UserBSTNode* root)
 {
@@ -127,6 +123,28 @@ vector<long> get_suggest(string xml, long ID)
 	}
 	return ID_result;
 }
+
+// TODO: include postsSearch class
+// vector <string> search_by_word (string xml, string word)
+// {
+// 	vector<treeNode*> test = totree(xml);
+// 	treeNode* test_tree = test[0];
+// 	UsersGraph* usersGraph = new UsersGraph(test_tree);
+// 	postsSearch* posts_search = new postsSearch(usersGraph);
+// 	vector<string> result = posts_search->searchByWord(word);
+// 	return result;
+// }
+//
+// vector <string> search_by_topic (string xml, string topic)
+// {
+// 	vector<treeNode*> test = totree(xml);
+// 	treeNode* test_tree = test[0];
+// 	UsersGraph* usersGraph = new UsersGraph(test_tree);
+// 	postsSearch* posts_search = new postsSearch(usersGraph);
+// 	vector<string> result = posts_search->searchByTopic(topic);
+// 	return result;
+// }
+
 
 
 /*
