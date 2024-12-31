@@ -1,6 +1,3 @@
-//
-// Created by kiro3 on 12/30/2024.
-//
 #include <bits/stdc++.h>
 #include <fstream>
 #include <cstdlib>
@@ -8,77 +5,131 @@
 //#include "../XML2tree/XMLtoTree.cpp"
 
 //#include "User.h"
+#include "Level_2_Command_Line_Functions.h"
 #include "UsersGraph.cpp"
+
 string print_edge_list(UserBSTNode* root)
 {
-    if(root== nullptr)return "";
+	if (root == nullptr)return "";
 
-    User *user=root->user;
-    string temp;
-    for(long fol:user->getFollowersIDsList())
-    {
+	User* user = root->user;
+	string temp;
+	for (long fol : user->getFollowersIDsList())
+	{
+		temp += (to_string(user->getID()) + " -> " + to_string(fol) + "\n");
+	}
 
-        temp+=(to_string(user->getID())+ " -> "+ to_string(fol)+"\n");
-    }
-
-    temp+=print_edge_list(root->left);
-    temp+= print_edge_list(root->right);
-    return temp;
-}
-void convertDotToPng(const std::string& dotFile, const std::string& outFile) {
-    // Construct the command to convert DOT to PNG
-    string dir="";
-    bool write=0;
-    for(int i=0;i<outFile.size();i++)
-    {
-       if(write) dir+=outFile[i];
-        if(outFile[i]=='.')write=1;
-
-    }
-    std::string command = "dot -T"+dir+" ./Network_Analysis/" + dotFile + " -o ./Network_Analysis/" + outFile;
-
-    // Execute the command
-    int result = system(command.c_str());
-
-    // Check for success or failure
-    if (result != 0) {
-        std::cerr << "Error: Failed to generate PNG file from DOT file." << std::endl;
-        exit(1);
-    } else {
-        std::cout << "Successfully generated PNG file: " << outFile << std::endl;
-    }
+	temp += print_edge_list(root->left);
+	temp += print_edge_list(root->right);
+	return temp;
 }
 
-void draw_graph(string xml ,string outputFile)
+void convertDotToPng(const std::string& dotFile, const std::string& outFile)
 {
-    vector <treeNode*> test = totree(xml);
-    treeNode* test_tree=test[0];
-    UsersGraph *usersGraph=new UsersGraph(test_tree);
+	// Construct the command to convert DOT to PNG
+	string dir = "";
+	bool write = 0;
+	for (int i = 0; i < outFile.size(); i++)
+	{
+		if (write) dir += outFile[i];
+		if (outFile[i] == '.')write = 1;
+	}
+	std::string command = "dot -T" + dir + " ./Network_Analysis/" + dotFile + " -o ./Network_Analysis/" + outFile;
 
-    // Open the file to write the DOT graph
-    std::ofstream dotFile("./Network_Analysis/graph.dot");
+	// Execute the command
+	int result = system(command.c_str());
 
-    // Check if the file was opened successfully
-    if (!dotFile) {
-        std::cerr << "Error opening the file!" << std::endl;
-        return ;
-    }
-
-    // Write a basic graph description in DOT language
-    dotFile << "digraph G {\n";
-    dotFile << print_edge_list(usersGraph->getUsers().getRoot());
-    dotFile << "}\n";
-
-    // Close the file
-    dotFile.close();
-
-    std::cout << "DOT file created successfully!" << std::endl;
-    std::string dotfile = "graph.dot";  // The DOT file that will be created
-
-    std::string pngFile = outputFile; // The PNG file that will be generated
-    convertDotToPng(dotfile, pngFile);
+	// Check for success or failure
+	if (result != 0)
+	{
+		std::cerr << "Error: Failed to generate PNG file from DOT file." << std::endl;
+		exit(1);
+	}
+	else
+	{
+		std::cout << "Successfully generated PNG file: " << outFile << std::endl;
+	}
 }
 
+void draw_graph(string xml, string outputFile)
+{
+	vector<treeNode*> test = totree(xml);
+	treeNode* test_tree = test[0];
+	UsersGraph* usersGraph = new UsersGraph(test_tree);
+
+	// Open the file to write the DOT graph
+	std::ofstream dotFile("./Network_Analysis/graph.dot");
+
+	// Check if the file was opened successfully
+	if (!dotFile)
+	{
+		std::cerr << "Error opening the file!" << std::endl;
+		return;
+	}
+
+	// Write a basic graph description in DOT language
+	dotFile << "digraph G {\n";
+	dotFile << print_edge_list(usersGraph->getUsers().getRoot());
+	dotFile << "}\n";
+
+	// Close the file
+	dotFile.close();
+
+	std::cout << "DOT file created successfully!" << std::endl;
+	std::string dotfile = "graph.dot"; // The DOT file that will be created
+
+	std::string pngFile = outputFile; // The PNG file that will be generated
+	convertDotToPng(dotfile, pngFile);
+}
+
+pair<long, string> get_most_active(string xml)
+{
+	vector<treeNode*> test = totree(xml);
+	treeNode* test_tree = test[0];
+	UsersGraph* usersGraph = new UsersGraph(test_tree);
+	User* user = usersGraph->getMostActiveUser();
+	long id = user->getID();
+	string name = user->getName();
+	return make_pair(id, name);
+}
+
+pair<long, string> get_most_influencer(string xml)
+{
+	vector<treeNode*> test = totree(xml);
+	treeNode* test_tree = test[0];
+	UsersGraph* usersGraph = new UsersGraph(test_tree);
+	User* user = usersGraph->getMostInfluencerUser();
+	long id = user->getID();
+	string name = user->getName();
+	return make_pair(id, name);
+}
+
+vector<long> get_mutual(string xml, const vector<long>& IDs)
+{
+	vector<treeNode*> test = totree(xml);
+	treeNode* test_tree = test[0];
+	UsersGraph* usersGraph = new UsersGraph(test_tree);
+	vector<long> ID_result = usersGraph->getMutualFollowers(IDs);
+	return ID_result;
+}
+
+vector<long> get_suggest(string xml, long ID)
+{
+	vector<treeNode*> test = totree(xml);
+	treeNode* test_tree = test[0];
+	UsersGraph* usersGraph = new UsersGraph(test_tree);
+	UsersBST usersBST = usersGraph->getUsers();
+	User* user = usersBST.findByID(ID);
+	vector<long> ID_result;
+	if (user != nullptr)
+	{
+		ID_result = user->getFollowersIDsList();
+	}
+	return ID_result;
+}
+
+
+/*
 int main() {
     std::string xml = R"(
 <users>
@@ -176,7 +227,8 @@ int main() {
 
 
 )";
-    string outputFile="kiro.tiff";
+    string outputFile="kiro.jpg";
     draw_graph(xml,outputFile);
 
 }
+*/
