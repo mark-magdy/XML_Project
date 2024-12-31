@@ -37,12 +37,11 @@ void minify(vector<string>& lines) {
 
 void editing(vector<string>& lines) { //call in case of multiple tags in 1 line
     for (int i = 0; i < lines.size(); i++) {
-        string temp = lines[i];
-        for (int j = 0; j < temp.length(); j++) {
-            if (temp[j] == '>' && j < temp.length() - 1 && temp[j + 1] == '<') {
-                lines[i] = temp.substr(0, j + 1);
-                string push = temp.substr(j + 1, temp.length() - (j + 1));
+        for (int j = 0; j < lines[i].length(); j++) {
+            if (lines[i][j] == '>' && j < lines[i].length() - 1 && lines[i][j + 1] == '<') { 
+                string push = lines[i].substr(j + 1, lines[i].length() - (j + 1));
                 lines.insert(lines.begin() + i + 1, push);
+                lines[i] = lines[i].substr(0, j + 1);
             }
         }
     }
