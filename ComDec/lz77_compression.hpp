@@ -1,4 +1,3 @@
-
 #ifndef LZ77_COMPRESSION_H
 #define LZ77_COMPRESSION_H
 
