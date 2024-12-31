@@ -7,13 +7,13 @@ void command_line (int argc,char* argv []){
     LZ77Compressor compression_obj;
     LZ77Decompressor decompression_obj;
     while (i < argc){
-        if (!strcmp(argv[i],"verify")){             //n2s minaaaa
+        if (!strcmp(argv[i],"verify")){             //done
             string xml ="";
+            bool correct_code = false,valid = false;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for verify";
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -28,7 +28,10 @@ void command_line (int argc,char* argv []){
                 }
                 validation test;
                 pair<bool,string> temp = test.check_valid(xml);
-                if(temp.first) cout<<endl<<"valid"<<endl;
+                if(temp.first){
+                    valid = true;
+                    cout<<endl<<"valid"<<endl;
+                }
                 else{
                     int errors=0;
                     cout<<endl<<"invalid"<<endl<<"Errors number: ";
@@ -42,32 +45,34 @@ void command_line (int argc,char* argv []){
                 }
                 i++;
                 if(!strcmp(argv[i],"-f")){
-                    //fill it
-                    // xml = check valid
+                    correct_code = true;
                     i++; // to see the next element
                 }
                 if(!strcmp(argv[i],"-o")){
                     i++;
                     string file = argv[i];
-                    ofstream fi(file,ios::out);
-                    if (fi.is_open()) {
-                        fi << xml;
-                        fi.close();
+                    if(correct_code && !valid)writeback_file(correct_xml(xml),file);
+                    else{
+                        ofstream fi(file,ios::out);
+                        if (fi.is_open()) {
+                            fi << xml;
+                            fi.close();
+                        }
+                        else {
+                        cout << "Error opening file!" << endl;
+                        }
                     }
-                    else {
-                    cout << "Error opening file!" << endl;
-                    }
+
                     i++;
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"format")){       //john done
+        else if (!strcmp(argv[i] , "format")){       //john done
             vector<string> xml;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -98,13 +103,12 @@ void command_line (int argc,char* argv []){
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"json")){         //jessy done
+        else if (!strcmp(argv[i] , "json")){         //jessy done
             string xml ="";
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -141,7 +145,6 @@ void command_line (int argc,char* argv []){
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -174,13 +177,12 @@ void command_line (int argc,char* argv []){
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"compress")){     // john compression done
+        else if (!strcmp(argv[i] , "compress")){     // john compression done
             string xml ="";
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -204,7 +206,7 @@ void command_line (int argc,char* argv []){
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"decompress")){   // decompression john done
+        else if (!strcmp(argv[i] , "decompress")){   // decompression john done
             string xml;
             i++;
             if(!strcmp(argv[i],"-i")){
@@ -220,13 +222,12 @@ void command_line (int argc,char* argv []){
                 }
             }
         }
-        else if (!strcmp(argv[i] , "draw")){
+        else if (!strcmp(argv[i] , "draw")){        // draw done
             string xml;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -239,32 +240,22 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-
-                // xml = json;
                 
                 i++;
                 if(!strcmp(argv[i],"-o")){
                     i++;
                     string file = argv[i];
-                    ofstream fi(file,ios::out);
-                    if (fi.is_open()) {
-                        // fi << xml;
-                        fi.close();
-                    }
-                    else {
-                    cout << "Error opening file!" << endl;
-                    }
+                    draw_graph(xml ,file);
                     i++;
                 }
             }
         }
-        else if (!strcmp(argv[i] ,"most_active")){
+        else if (!strcmp(argv[i] ,"most_active")){  // most active done
             string xml;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -277,18 +268,16 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-
-                // cout most activeee;
+                cout <<"Most active user: " <<get_most_active(xml)<<endl;
                 i++;
             }
         }
-        else if (!strcmp(argv[i] ,"most_influencer")){
+        else if (!strcmp(argv[i] ,"most_influencer")){ //most influencer done
             string xml;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -302,17 +291,16 @@ void command_line (int argc,char* argv []){
                     cout << "Error opening file!" << endl;
                 }
 
-                // cout most infulencer;
+                cout <<"Most influencer user: " <<get_most_influencer(xml)<<endl;
                 i++;
             }
         }
-        else if (!strcmp(argv[i] ,"mutual")){
+        else if (!strcmp(argv[i] ,"mutual")){           //mutual done;
             string xml;
             i++;
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -326,7 +314,6 @@ void command_line (int argc,char* argv []){
                     cout << "Error opening file!" << endl;
                 }
 
-                // cout most activeee;
                 i++;
                 if(!strcmp(argv[i],"-ids")){
                     i++;
@@ -340,9 +327,16 @@ void command_line (int argc,char* argv []){
                         }
                         else temp += IDs_number[j];
                     }
-
-                    //ndiniiiii
-
+                    vector<long> mutual;
+                    mutual = get_mutual(xml,IDs);
+                    if(mutual.empty())cout<<"No mutual users! "<<endl;
+                    else{
+                        cout<<"Mutual users: ";
+                        for(long y : mutual){
+                            cout<< y<<", ";
+                        }
+                        cout<<endl;
+                    }
                     i++;
                 }
             }
@@ -353,7 +347,6 @@ void command_line (int argc,char* argv []){
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -366,37 +359,45 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-
-                // cout most activeee;
                 i++;
                 if(!strcmp(argv[i],"-id")){
                     i++;
                     string IDs_number = argv [i];
                     int IDs;
                     IDs = stoi(IDs_number);
-
-                    //suggest
+                    vector<long> suggested;
+                    suggested = get_suggest(xml,IDs);
+                    if(suggested.empty()) cout << "No suggested users! " <<endl;
+                    else{
+                        cout<<"suggested users: ";
+                        for(long y : suggested){
+                            cout<< y <<", ";
+                        }
+                        cout<<endl;
+                    }
                     i++;
                 }
             }
         }
         else if (!strcmp(argv[i] ,"search")){
             string xml,word_topic;
+            bool word;
             i++;
             if(!strcmp(argv[i],"-w")){
                 i++;
                 word_topic = argv[i];
+                word = true;
                 i++;
             }
             if(!strcmp(argv[i],"-t")){
                 i++;
                 word_topic = argv[i];
+                word = false;
                 i++;
             }
             if(!strcmp(argv[i],"-i")){
                 i++;
                 string file_name = argv [i];
-                cout<<endl<<"ready for format"<<endl;
                 ifstream fio(file_name, ios::in);
                 if (fio.is_open()) {
                     string line;
@@ -409,13 +410,40 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-                // cout most activeee;
+                if(word){
+                    vector <string> byword;
+                    byword = search_by_word (xml, word_topic);
+                    if(byword.empty())cout<<"No posts found! "<<endl;
+                    else{
+                        cout << "posts using this word: "<<endl;
+                        int j = 1;
+                        for (string temp : byword){
+                            cout << "post number " <<j<<": "<<endl<<temp<<endl;
+                            j++;
+                        }
+                    }
+                }
+                else{
+                    vector <string> bytopic;
+                    bytopic = search_by_topic  (xml, word_topic);
+                    if(bytopic.empty())cout<<"No posts with this topic found! "<<endl;
+                    else{
+                        cout << "posts using this topic: "<<endl;
+                        int j = 1;
+                        for (string temp : bytopic){
+                            cout << "post number " <<j<<": "<<endl<<temp<<endl;
+                            j++;
+                        }
+                    }
+                }
                 i++;
             }
         }
         else{
-            cout<<"no valid command";
+            cout<<"no valid command"<<endl;
             break;
         }
     }
+    cout.flush();
+    cout<<endl;
 }
