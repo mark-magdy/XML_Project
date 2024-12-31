@@ -1,5 +1,5 @@
-#ifndef CMD_TEST_H
-#define CMD_TEST_H
+#ifndef CMD_H
+#define CMD_H
 
 #include "../Backend.h"
 #include <iostream>

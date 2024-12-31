@@ -1,4 +1,4 @@
-#include "CMD_test.h"
+#include "CMD.h"
 
 using namespace std;
 
@@ -122,7 +122,7 @@ void command_line (int argc,char* argv []){
                     cout << "Error opening file!" << endl;
                 }
                 vector<treeNode*> test = totree(xml);
-                xml = finalJson(test);
+                //xml = finalJson(test);
                 i++;
                 if(!strcmp(argv[i],"-o")){
                     i++;
