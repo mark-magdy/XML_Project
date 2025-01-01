@@ -77,6 +77,9 @@ void convertDotToPng(const std::string& dotFile, const std::string& pngFile) {
         std::cout << "Successfully generated PNG file: " << pngFile << std::endl;
     }
 }
+
+
+/*
 int main()
 {
     std::string xml = R"(
@@ -277,3 +280,4 @@ int main()
   //cout<<test[0]->identifier; //issue
     return 0;
 }
+*/
