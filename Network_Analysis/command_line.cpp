@@ -135,7 +135,7 @@ vector<long> get_suggest(string xml, long ID)
      vector<string> result ;
      for (auto &i: ret ) {
          string toprint = "topics:";
-         cout <<" -- " << i.topics.size() <<" " << i.topics[0]<< endl ;
+         //cout <<" -- " << i.topics.size() <<" " << i.topics[0]<< endl ;
          for ( auto j : i.topics) toprint+= j + "  ";
          toprint+="\n";
          toprint+=i.content;
