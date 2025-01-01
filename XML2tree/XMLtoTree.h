@@ -1,8 +1,8 @@
-#ifndef XMLtoTree_H
-#define XMLtoTree_H
+#ifndef XMLTOTREE_H
+#define XMLTOTREE_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <vector>
 #include <stack>
 #include <cctype>

@@ -65,7 +65,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\ConvertToJson;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\indentation;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\XML2tree;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\validation;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\ComDec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\Network_Analysis;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\ConvertToJson;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\indentation;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\XML2tree;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\validation;D:\ASU Courses Engineering Junior\data structure\XML_Parser_project\XML_Parser_Project\ComDec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -104,6 +104,12 @@
     <ClCompile Include="..\ComDec\compress_decompress.cpp" />
     <ClCompile Include="..\ConvertToJson\ConvertToJson.cpp" />
     <ClCompile Include="..\indentation\codes.cpp" />
+    <ClCompile Include="..\Network_Analysis\command_line.cpp" />
+    <ClCompile Include="..\Network_Analysis\main.cpp" />
+    <ClCompile Include="..\Network_Analysis\postsSearch.cpp" />
+    <ClCompile Include="..\Network_Analysis\User.cpp" />
+    <ClCompile Include="..\Network_Analysis\UsersBST.cpp" />
+    <ClCompile Include="..\Network_Analysis\UsersGraph.cpp" />
     <ClCompile Include="..\validation\checkvalidation.cpp" />
     <ClCompile Include="..\validation\xml_correction.cpp" />
     <ClCompile Include="..\XML2tree\XMLtoTree.cpp" />
@@ -131,6 +137,12 @@
     <ClInclude Include="..\ComDec\lz77_compression.hpp" />
     <ClInclude Include="..\ConvertToJson\ConvertToJson.h" />
     <ClInclude Include="..\indentation\codes.h" />
+    <ClInclude Include="..\Network_Analysis\Level_2_Command_Line_Functions.h" />
+    <ClInclude Include="..\Network_Analysis\post.h" />
+    <ClInclude Include="..\Network_Analysis\postsSearch.h" />
+    <ClInclude Include="..\Network_Analysis\User.h" />
+    <ClInclude Include="..\Network_Analysis\UsersBST.h" />
+    <ClInclude Include="..\Network_Analysis\UsersGraph.h" />
     <ClInclude Include="..\validation\validate.hpp" />
     <ClInclude Include="..\XML2tree\XMLtoTree.h" />
     <ClInclude Include="resource.h" />
@@ -139,7 +151,11 @@
     <ResourceCompile Include="XML_Parser_Project.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Network_Analysis\graph.dot" />
     <None Include="style.qss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Network_Analysis\kiro.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

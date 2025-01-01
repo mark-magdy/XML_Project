@@ -5,12 +5,18 @@
 #ifndef LEVEL2NET_POSTSSEARCH_H
 #define LEVEL2NET_POSTSSEARCH_H
 
+#include "post.h"
+#include "UsersGraph.h"
+
+/*
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <map>
-#include "UsersGraph.h"
-#include "post.h"
+*/
+
+//#include "UsersGraph.h"
+
 using namespace std ;
 
 class postsSearch {

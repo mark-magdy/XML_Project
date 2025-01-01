@@ -1,25 +1,5 @@
-#include <iostream>
-#include <string.h>
-#include <vector>
-#include <stack>
-#include <cctype>
-#include <algorithm>
-
+#include "XMLtoTree.h"
 using namespace std;
-
-class treeNode{
-    public :
-    string identifier;
-    string content;
-    treeNode * parent; // for navigating back from child to parent
-    vector <treeNode *> children;
-    long long level;
-
-    treeNode()
-    {
-
-    }
-};
 
 vector <treeNode*> totree(string str_file)
 {

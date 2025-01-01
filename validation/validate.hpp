@@ -9,6 +9,10 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+
+// other includes and code...
+
 using namespace std;
 
 class validation{
@@ -28,6 +32,8 @@ public:
 
 };
 
-vector <string> correct_xml(string xml_string);
+vector <string> correct_xml(string xml_string); 
+void writeback_file(vector <string> xml_lines, string filepath); 
+
 
 #endif

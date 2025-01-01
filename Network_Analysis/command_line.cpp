@@ -1,8 +1,12 @@
 //#include <bits/stdc++.h>
 //#include "../XML2tree/XMLtoTree.cpp"
 //#include "User.h"
-#include "Level_2_Command_Line_Functions.h"
 //#include "UsersGraph.cpp"
+ 
+//------------------
+
+#include "Level_2_Command_Line_Functions.h"
+
 
 string print_edge_list(UserBSTNode* root)
 {
@@ -30,7 +34,7 @@ void convertDotToPng(const std::string& dotFile, const std::string& outFile)
 		if (write) dir += outFile[i];
 		if (outFile[i] == '.')write = 1;
 	}
-	std::string command = "dot -T" + dir + " ./Network_Analysis/" + dotFile + " -o ./Network_Analysis/" + outFile;
+	std::string command = "dot -T" + dir + " ./" + dotFile + " -o ./" + outFile;
 
 	// Execute the command
 	int result = system(command.c_str());
@@ -49,12 +53,13 @@ void convertDotToPng(const std::string& dotFile, const std::string& outFile)
 
 void draw_graph(string xml, string outputFile)
 {
+    cout << "lets draw the graph \n"; 
 	vector<treeNode*> test = totree(xml);
 	treeNode* test_tree = test[0];
 	UsersGraph* usersGraph = new UsersGraph(test_tree);
 
 	// Open the file to write the DOT graph
-	std::ofstream dotFile("./Network_Analysis/graph.dot");
+	std::ofstream dotFile("graph.dot");
 
 	// Check if the file was opened successfully
 	if (!dotFile)
@@ -117,9 +122,8 @@ vector<long> get_suggest(string xml, long ID)
 	UsersBST usersBST = usersGraph->getUsers();
 	User* user = usersBST.findByID(ID);
 	vector<long> ID_result;
-	if (user != nullptr)
-	{
-		ID_result = user->getFollowersIDsList();
+	if (user != nullptr){
+		ID_result = user->getSuggestedFriendsIDsList();
 	}
 	return ID_result;
 }
@@ -142,6 +146,7 @@ vector<long> get_suggest(string xml, long ID)
          result.push_back(toprint);
      }
      return result;
+
  }
 
  vector <string> search_by_topic (string xml, string topic)
@@ -160,111 +165,113 @@ vector<long> get_suggest(string xml, long ID)
          result.push_back(toprint);
      }
  	return result;
+	
  }
 
 
 
+ /*
+int main() {
+    std::string xml = R"(
+<users>
+    <user>
+        <id>1</id>
+        <name>Ahmed Ali</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>economy</topic>
+                    <topic>finance</topic>
+                </topics>
+            </post>
+           <post>
+               <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo onsequat.
+               </body>
+                <topics>
+                    <topic>solar_energy</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>2</id>
+            </follower>
+            <follower>
+                <id>3</id>
+            </follower>
+            <follower>
+                <id>4</id>
+            </follower>
+            <follower>
+                <id>5</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>2</id>
+        <name>Yasser Ahmed</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>education</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+               <id>1</id>
+            </follower>
+            <follower>
+                <id>3</id>
+            </follower>
+           <follower>
+                <id>6</id>
+            </follower>
+            <follower>
+                <id>7</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+       <id>3</id>
+       <name>Mohamed Sherif</name>
+        <posts>
+            <post>
+               <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>sports</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>1</id>
+            </follower>
+           <follower>
+                <id>2</id>
+            </follower>
+           <follower>
+               <id>4</id>
+            </follower>
+        </followers>
+   </user>
+</users>
 
-//int main() {
-//    std::string xml = R"(
-//<users>
-//    <user>
-//        <id>1</id>
-//        <name>Ahmed Ali</name>
-//        <posts>
-//            <post>
-//                <body>
-//                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-//                </body>
-//                <topics>
-//                    <topic>economy</topic>
-//                    <topic>finance</topic>
-//                </topics>
-//            </post>
-//            <post>
-//                <body>
-//                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo onsequat.
-//                </body>
-//                <topics>
-//                    <topic>solar_energy</topic>
-//                </topics>
-//            </post>
-//        </posts>
-//        <followers>
-//            <follower>
-//                <id>2</id>
-//            </follower>
-//            <follower>
-//                <id>3</id>
-//            </follower>
-//            <follower>
-//                <id>4</id>
-//            </follower>
-//            <follower>
-//                <id>5</id>
-//            </follower>
-//        </followers>
-//    </user>
-//    <user>
-//        <id>2</id>
-//        <name>Yasser Ahmed</name>
-//        <posts>
-//            <post>
-//                <body>
-//                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-//                </body>
-//                <topics>
-//                    <topic>education</topic>
-//                </topics>
-//            </post>
-//        </posts>
-//        <followers>
-//            <follower>
-//                <id>1</id>
-//            </follower>
-//            <follower>
-//                <id>3</id>
-//            </follower>
-//            <follower>
-//                <id>6</id>
-//            </follower>
-//            <follower>
-//                <id>7</id>
-//            </follower>
-//        </followers>
-//    </user>
-//    <user>
-//        <id>3</id>
-//        <name>Mohamed Sherif</name>
-//        <posts>
-//            <post>
-//                <body>
-//                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-//                </body>
-//                <topics>
-//                    <topic>sports</topic>
-//                </topics>
-//            </post>
-//        </posts>
-//        <followers>
-//            <follower>
-//                <id>1</id>
-//            </follower>
-//            <follower>
-//                <id>2</id>
-//            </follower>
-//            <follower>
-//                <id>4</id>
-//            </follower>
-//        </followers>
-//    </user>
-//</users>
-//
-//
-//)";
-//    //string outputFile="kiro.jpg";
-//    //draw_graph(xml,outputFile);
-//    for ( auto &i : search_by_word(xml,"consequat")){
-//        cout << i<< "\n\n" ;
-//    }
-//}
+
+)";
+    //string outputFile="kiro.jpg";
+    //draw_graph(xml,outputFile);
+    for ( auto &i : search_by_word(xml,"consequat")){
+        cout << i<< "\n\n" ;
+    }
+}
+*/

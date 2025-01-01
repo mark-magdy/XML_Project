@@ -1,5 +1,20 @@
 #include "UsersGraph.h"
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <set>
+//#include <utility>
+//#include <memory>
+#include <queue>
+#include <stack>
+#include <deque>
+#include <cmath>
+#include <cstring>
+#include <unordered_map>
+#include <unordered_set>
+
 // Constructor
 UsersGraph::UsersGraph(treeNode* t)
 {
@@ -19,7 +34,7 @@ UsersGraph::UsersGraph(treeNode* t)
 				valid = 0;
 				break;
 			}
-			User* user;
+			User* user= zero_user;
 			for (treeNode* tempId : tempUser->children)
 			{
 				string data = tempId->identifier; // datafield of user

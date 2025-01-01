@@ -4,37 +4,58 @@
 
 #ifndef XML_PROJECT_POST_H
 #define XML_PROJECT_POST_H
+
+#include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
+#include <set>
+//#include <utility>
+//#include <memory>
+#include <queue>
+#include <stack>
+#include <deque>
+#include <cmath>
+#include <cstring>
+#include <unordered_map>
+#include <unordered_set>
+
+
+#include <vector>
+#include <algorithm>
+
+// other includes and code...
+
 using namespace std;
-using ll = long long ;
-const int N = 2e5+10;
-int p1, p2;
-vector<ll> pw1(N), pw2(N);
-
-const int MOD = 1e9+7;
-
-void pre() {
-    srand(time(0));
-    p1 = rand()%MOD, p2 = rand()%MOD;
-    pw1[0] = 1, pw2[0] = 1;
-    for (int i = 1; i < N; ++i) {
-        pw1[i] = (pw1[i - 1] * p1) % MOD;
-        pw2[i] = (pw2[i - 1] * p2) % MOD;
-    }
-}
-
 
 struct Hash {
     vector<pair<int, int>> prefixHash;
     Hash() {}
+    int N = 2e5 + 10; 
+    int p1, p2;
+    int pw1[200000];
+    int pw2[200000];
+    const int MOD = 1e9 + 7;
+
+    void preHash() {
+        //srand(time(0));
+
+        p1 = 1023568 % MOD, p2 = 785632326 % MOD;
+        pw1[0] = 1, pw2[0] = 1;
+        for (int i = 1; i < N; ++i) {
+            pw1[i] = (pw1[i - 1] * p1) % MOD;
+            pw2[i] = (pw2[i - 1] * p2) % MOD;
+        }
+
+    }
 
     Hash(string &s) {
+        preHash(); 
         prefixHash = vector<pair<int, int >>(s.size(), {0, 0});
         for (int i = 0; i < s.size(); i++) {
-            prefixHash[i].first = ((ll) s[i] * pw1[i]) % MOD;
-            prefixHash[i].second = ((ll) s[i] * pw2[i]) % MOD;
+            prefixHash[i].first = ((int) s[i] * pw1[i]) % MOD;
+            prefixHash[i].second = ((int) s[i] * pw2[i]) % MOD;
             if (i)
                 prefixHash[i] = {(prefixHash[i].first + prefixHash[i - 1].first) % MOD,
                                  (prefixHash[i].second + prefixHash[i - 1].second) % MOD};
@@ -59,11 +80,11 @@ struct post{
     string content;
     vector<string> topics ;
     int userId ;
-    Hash hashedContent ;
+    Hash* hashedContent ;
     post(vector<string> topics,string content,  int userId){
         this->topics=topics;
         this->content=content ;
-        hashedContent = Hash (content) ;
+        hashedContent = new Hash (content) ;
         this->userId=userId;
     }
 };

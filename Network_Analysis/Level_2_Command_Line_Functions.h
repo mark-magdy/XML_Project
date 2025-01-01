@@ -1,11 +1,27 @@
 #ifndef LEVEL_2_COMMAND_LINE_FUNCTIONS_H
 #define LEVEL_2_COMMAND_LINE_FUNCTIONS_H
 
-#include <bits/stdc++.h>
-#include "UsersGraph.cpp"
-#include "postsSearch.cpp"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <set>
+//#include <utility>
+//#include <memory>
+#include <queue>
+#include <stack>
+#include <deque>
+#include <cmath>
+#include <cstring>
+#include <unordered_map>
+#include <unordered_set>
 
+#include <fstream>
+#include "UsersGraph.h"
+#include "postsSearch.h"
 
+using namespace std; 
 
 void draw_graph(string xml ,string outputFile);
 pair<long, string> get_most_active(string xml);

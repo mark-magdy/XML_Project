@@ -19,7 +19,7 @@ void dfsTraverse(UserBSTNode* x ,vector <User*> &vc  ){
     }
 }
 postsSearch::postsSearch (UsersGraph* t) {
-    pre();
+    
     vector <User*> vc ;
     dfsTraverse(t->getUsers().getRoot(), vc);
 
@@ -41,7 +41,7 @@ vector <post> postsSearch::searchByWord (string ser){
     vector < post > ret ;
     for (auto &p: listOfPosts) {
         for (int i = 0; i + sz - 1 < min((int) p.content.size(), (int) 1e5); ++i) {
-            if (p.hashedContent.getRangeHashVal(i, i + sz - 1) == cmp) {// getHash O(1)
+            if (p.hashedContent->getRangeHashVal(i, i + sz - 1) == cmp) {// getHash O(1)
                 ret.push_back(p);
             }
         }

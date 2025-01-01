@@ -1,7 +1,7 @@
 #ifndef USERSBST_H
 #define USERSBST_H
 
-#include "User.cpp"
+#include "User.h"
 
 class UserBSTNode
 {

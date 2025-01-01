@@ -268,7 +268,8 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-                cout <<"Most active user: " <<get_most_active(xml)<<endl;
+                auto tempRet = get_most_active(xml); 
+                cout <<"Most active user: " << tempRet .first<< " " << tempRet.second<<  endl;
                 i++;
             }
         }
@@ -290,8 +291,8 @@ void command_line (int argc,char* argv []){
                 else {
                     cout << "Error opening file!" << endl;
                 }
-
-                cout <<"Most influencer user: " <<get_most_influencer(xml)<<endl;
+                auto tempRet = get_most_influencer(xml); 
+                cout <<"Most influencer user: " <<  tempRet.first << " " << tempRet.second <<endl;
                 i++;
             }
         }
@@ -318,7 +319,7 @@ void command_line (int argc,char* argv []){
                 if(!strcmp(argv[i],"-ids")){
                     i++;
                     string IDs_number = argv [i];
-                    vector <int> IDs;
+                    vector <long> IDs;
                     string temp ="";
                     for (int j = 0; j < IDs_number.size(); j++){
                         if(IDs_number[j]==','){

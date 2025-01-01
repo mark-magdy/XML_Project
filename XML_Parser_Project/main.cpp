@@ -19,6 +19,9 @@
 #include <QTextStream>
 #include <QDir>
 
+
+// other includes and code...
+
 QApplication * globalVar ;
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -146,7 +149,7 @@ void MainWindow::showAboutDialog() {
 MainWindow* globalWindow;
 
 int main(int argc, char* argv[]) {
-    cout << "hi ;;" << endl; 
+    cout << "WELCOME TO XML PARSER" << endl; 
     if (argc > 1) {
         command_line(argc,argv);
         return 0;
@@ -327,9 +330,7 @@ void outputWindow::saveClick() {
     }
     else {
         globalWindow->output->setOutputText(QString::fromStdString("ERROR .. try again diffrent Path"));
-
     }
-    
 }
 
 

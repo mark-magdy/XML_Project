@@ -70,6 +70,24 @@
     <ClCompile Include="..\validation\xml_correction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Network_Analysis\command_line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Network_Analysis\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Network_Analysis\postsSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Network_Analysis\User.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Network_Analysis\UsersBST.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Network_Analysis\UsersGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="functionBtns.h">
@@ -113,6 +131,24 @@
     <ClInclude Include="..\ConvertToJson\ConvertToJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Network_Analysis\Level_2_Command_Line_Functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network_Analysis\post.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network_Analysis\postsSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network_Analysis\User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network_Analysis\UsersBST.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network_Analysis\UsersGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XML_Parser_Project.rc">
@@ -121,5 +157,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="style.qss" />
+    <None Include="..\Network_Analysis\graph.dot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Network_Analysis\kiro.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

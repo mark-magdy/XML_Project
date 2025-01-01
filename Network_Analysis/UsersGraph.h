@@ -2,10 +2,10 @@
 #define USERSGRAPH_H
 
 
-//#include "User.h"
-#include "UsersBST.cpp"
+#include "User.h"
+#include "UsersBST.h"
 
-#include "../XML2tree/XMLtoTree.cpp"
+#include "../XML2tree/XMLtoTree.h"
 
 class UsersGraph
 {
