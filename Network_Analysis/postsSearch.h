@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
 #include "UsersGraph.h"
 #include "post.h"
 using namespace std ;
@@ -15,11 +16,11 @@ using namespace std ;
 class postsSearch {
 private:
     vector <post> listOfPosts;
-
+    map<pair<int,int> , vector <post> > mapOfPosts ;
 public:
     postsSearch (UsersGraph* t) ;
-    vector <string> searchByWord (string ser);
-    vector <string> searchByTopic (string ser);
+    vector <post> searchByWord (string ser);
+    vector <post> searchByTopic (string ser);
 };
 
 #endif //LEVEL2NET_POSTSSEARCH_H
