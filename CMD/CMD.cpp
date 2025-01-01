@@ -328,6 +328,7 @@ void command_line (int argc,char* argv []){
                         }
                         else temp += IDs_number[j];
                     }
+                    IDs.push_back(stoi(temp));
                     vector<long> mutual;
                     mutual = get_mutual(xml,IDs);
                     if(mutual.empty())cout<<"No mutual users! "<<endl;
@@ -413,6 +414,7 @@ void command_line (int argc,char* argv []){
                 }
                 if(word){
                     vector <string> byword;
+                    cout <<"ser by word: " << word_topic << endl;
                     byword = search_by_word (xml, word_topic);
                     if(byword.empty())cout<<"No posts found! "<<endl;
                     else{
@@ -426,6 +428,7 @@ void command_line (int argc,char* argv []){
                 }
                 else{
                     vector <string> bytopic;
+                    cout << "ser by topic: " << word_topic << endl;
                     bytopic = search_by_topic  (xml, word_topic);
                     if(bytopic.empty())cout<<"No posts with this topic found! "<<endl;
                     else{

@@ -31,8 +31,8 @@ using namespace std;
 
 struct Hash {
     vector<pair<int, int>> prefixHash;
+    int N = 200000; 
     Hash() {}
-    int N = 2e5 + 10; 
     int p1, p2;
     int pw1[200000];
     int pw2[200000];
@@ -43,7 +43,7 @@ struct Hash {
 
         p1 = 1023568 % MOD, p2 = 785632326 % MOD;
         pw1[0] = 1, pw2[0] = 1;
-        for (int i = 1; i < N; ++i) {
+        for (int i = 1; i < 200000; ++i) {
             pw1[i] = (pw1[i - 1] * p1) % MOD;
             pw2[i] = (pw2[i - 1] * p2) % MOD;
         }

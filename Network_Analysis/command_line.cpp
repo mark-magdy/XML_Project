@@ -26,6 +26,7 @@ string print_edge_list(UserBSTNode* root)
 
 void convertDotToPng(const std::string& dotFile, const std::string& outFile)
 {
+    cout << "converting \n"; 
 	// Construct the command to convert DOT to PNG
 	string dir = "";
 	bool write = 0;
@@ -34,8 +35,9 @@ void convertDotToPng(const std::string& dotFile, const std::string& outFile)
 		if (write) dir += outFile[i];
 		if (outFile[i] == '.')write = 1;
 	}
-	std::string command = "dot -T" + dir + " ./" + dotFile + " -o ./" + outFile;
-
+    
+	std::string command = "dot -T" + dir  + " " + dotFile + " -o " + outFile;
+    cout << command << endl; 
 	// Execute the command
 	int result = system(command.c_str());
 
