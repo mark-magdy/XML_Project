@@ -124,30 +124,47 @@ vector<long> get_suggest(string xml, long ID)
 	return ID_result;
 }
 
-// TODO: include postsSearch class
-// vector <string> search_by_word (string xml, string word)
-// {
-// 	vector<treeNode*> test = totree(xml);
-// 	treeNode* test_tree = test[0];
-// 	UsersGraph* usersGraph = new UsersGraph(test_tree);
-// 	postsSearch* posts_search = new postsSearch(usersGraph);
-// 	vector<string> result = posts_search->searchByWord(word);
-// 	return result;
-// }
-//
-// vector <string> search_by_topic (string xml, string topic)
-// {
-// 	vector<treeNode*> test = totree(xml);
-// 	treeNode* test_tree = test[0];
-// 	UsersGraph* usersGraph = new UsersGraph(test_tree);
-// 	postsSearch* posts_search = new postsSearch(usersGraph);
-// 	vector<string> result = posts_search->searchByTopic(topic);
-// 	return result;
-// }
+
+ vector <string> search_by_word (string xml, string word)
+ {
+ 	vector<treeNode*> test = totree(xml);
+ 	treeNode* test_tree = test[0];
+ 	UsersGraph* usersGraph = new UsersGraph(test_tree);
+ 	postsSearch* posts_search = new postsSearch(usersGraph);
+ 	auto ret =  posts_search->searchByWord(word);
+     vector<string> result ;
+     for (auto &i: ret ) {
+         string toprint = "topics:";
+         cout <<" -- " << i.topics.size() <<" " << i.topics[0]<< endl ;
+         for ( auto j : i.topics) toprint+= j + "  ";
+         toprint+="\n";
+         toprint+=i.content;
+         result.push_back(toprint);
+     }
+     return result;
+ }
+
+ vector <string> search_by_topic (string xml, string topic)
+ {
+ 	vector<treeNode*> test = totree(xml);
+ 	treeNode* test_tree = test[0];
+ 	UsersGraph* usersGraph = new UsersGraph(test_tree);
+ 	postsSearch* posts_search = new postsSearch(usersGraph);
+     auto ret = posts_search->searchByTopic(topic);
+     vector<string> result ;
+     for (auto &i: ret ) {
+         string toprint = "topics:";
+         for ( auto &j : i.topics) toprint+= j + "  ";
+         toprint+="\n";
+         toprint+=i.content;
+         result.push_back(toprint);
+     }
+ 	return result;
+ }
 
 
 
-/*
+
 int main() {
     std::string xml = R"(
 <users>
@@ -166,7 +183,7 @@ int main() {
             </post>
             <post>
                 <body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo onsequat.
                 </body>
                 <topics>
                     <topic>solar_energy</topic>
@@ -245,8 +262,9 @@ int main() {
 
 
 )";
-    string outputFile="kiro.jpg";
-    draw_graph(xml,outputFile);
-
+    //string outputFile="kiro.jpg";
+    //draw_graph(xml,outputFile);
+    for ( auto &i : search_by_word(xml,"consequat")){
+        cout << i<< "\n\n" ;
+    }
 }
-*/

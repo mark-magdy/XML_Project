@@ -3,7 +3,7 @@
 
 #include <bits/stdc++.h>
 #include "UsersGraph.cpp"
-//#include "postsSearch.h"
+#include "postsSearch.cpp"
 
 
 

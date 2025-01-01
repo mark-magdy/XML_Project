@@ -28,7 +28,6 @@ void pre() {
 
 struct Hash {
     vector<pair<int, int>> prefixHash;
-
     Hash() {}
 
     Hash(string &s) {
